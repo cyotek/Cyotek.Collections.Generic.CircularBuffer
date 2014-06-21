@@ -99,4 +99,4 @@ The only thing the original has that this version does not is localization suppo
 
 ## License
 
-The code is licensed under the New BSD License (BSD). See license-circularbuffer.txt for details.
+The code is licensed under the New BSD License (BSD). See `license-circularbuffer.txt` for details.
