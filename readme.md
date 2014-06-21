@@ -96,3 +96,7 @@ The `CircularBuffer<T>` class was originally taken from [Circular Buffer for .NE
 Syntax-wise, I don't remember changing any method signatures so they should work the same. I did rename the `AllowOverflow` property to `AllowOverwrite` which seems to make more sense to me.
 
 The only thing the original has that this version does not is localization support - the original version read exception messages from a resource file, whereas here they are just string literals.
+
+## License
+
+The code is licensed under the New BSD License (BSD). See license-circularbuffer.txt for details.
