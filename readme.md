@@ -1,5 +1,7 @@
 # CircularBuffer&lt;T> Class
 
+[![Build status](https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7)](https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer)
+
 The `CircularBuffer<T>` class is a data structure that uses a single, fixed-size buffer that behaves as if it were connected end-to-end. You can use it as a first-in, first-out collection of objects with automatic overwrite support and no array resizing or allocations.  
 
 You can drop the class directly into your projects to use as-is, or reference the assembly. A nuget package will follow in due course.
