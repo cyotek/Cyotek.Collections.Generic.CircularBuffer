@@ -1,14 +1,14 @@
 # CircularBuffer&lt;T> Class
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7)](https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer)
+[![Build status](https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7?svg=true)](https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer)
 
 The `CircularBuffer<T>` class is a data structure that uses a single, fixed-size buffer that behaves as if it were connected end-to-end. You can use it as a first-in, first-out collection of objects with automatic overwrite support and no array resizing or allocations.  
 
-You can drop the class directly into your projects to use as-is, or reference the assembly. A nuget package will follow in due course.
+You can drop the class directly into your projects to use as-is, or reference the assembly. A NuGet package is [also available](https://www.nuget.org/packages/Cyotek.CircularBuffer/).
 
 ## Overwrite support
 
-By default, the contents of the buffer automatically wrap, so for example if you create a buffer with a maximum capacity of 10, but then attempt to add 11 items, the oldest item in the buffer will be automatically written.
+By default, the contents of the buffer automatically wrap, so for example if you create a buffer with a maximum capacity of 10, but then attempt to add 11 items, the oldest item in the buffer will be automatically overwritten.
 
 Alternatively, you can set the `AllowOverwrite` property to `false`, in which case attempting to add that eleventh item would throw an exception.
 
@@ -28,11 +28,11 @@ To retrieve the next item without removing it from the buffer, you can use the `
 
 Calling `Get`, `Peek` or `PeekLast` on an empty buffer will thrown an exception, you can use `IsEmpty` to check if these actions will succeed. Similarly, calling `Put` on a full buffer with overwriting disabled will also throw an exception. You can use `IsFull` to check if this is the case.
 
-The `Size` property allows you to see how many items you've added to the collection.
+The `Size` property allows you to see how many items you've added to the buffer.
 
 The `ToArray` method will return all queued items, or you can use `CopyTo` as a more advanced alternative.
 
-The `CircularBuffer<T>` class implements `IEnumerable<T>` and `IEnumerable`, so you can happily iterate over the items - this won't remove them from the buffer. It also implements `ICollection<T>` and `ICollection` although calling `ICollection<T>.Remove` is not supported and will thrown an exception.
+The `CircularBuffer<T>` class implements `IEnumerable<T>` and `IEnumerable`, so you can happily iterate over the items - this won't remove them from the buffer. It also implements `ICollection<T>` and `ICollection` although calling `ICollection<T>.Remove` is not supported and will throw an exception.
 
 Finally, the `Clear` method will reset the buffer to an empty state.
 
@@ -101,4 +101,4 @@ The only thing the original has that this version does not is localization suppo
 
 ## License
 
-The code is licensed under the New BSD License (BSD). See `license-circularbuffer.txt` for details.
+The code is licensed under the New BSD License (BSD) as per the original source this implementation is based upon. See `license.txt` for details.
