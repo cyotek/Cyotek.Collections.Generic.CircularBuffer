@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace Cyotek.Collections.Generic.Tests
+namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 {
   [TestFixture]
   public class CircularBufferTests
@@ -1248,7 +1248,7 @@ namespace Cyotek.Collections.Generic.Tests
       CircularBuffer<byte> target;
       byte[] expected;
 
-      expected = GenerateRandomData(100);
+      expected = this.GenerateRandomData(100);
 
       target = new CircularBuffer<byte>(expected.Length, false);
       target.Put(byte.MaxValue);
@@ -1264,7 +1264,7 @@ namespace Cyotek.Collections.Generic.Tests
       CircularBuffer<byte> target;
       byte[] expected;
 
-      expected = GenerateRandomData(100);
+      expected = this.GenerateRandomData(100);
 
       target = new CircularBuffer<byte>(expected.Length);
 
@@ -1461,10 +1461,10 @@ namespace Cyotek.Collections.Generic.Tests
       CircularBuffer<byte> target;
       byte[] expected;
 
-      expected = GenerateRandomData(100);
+      expected = this.GenerateRandomData(100);
 
       target = new CircularBuffer<byte>(expected.Length, true);
-      target.Put(GenerateRandomData(expected.Length / 2));
+      target.Put(this.GenerateRandomData(expected.Length / 2));
       target.Put(expected);
 
       // act

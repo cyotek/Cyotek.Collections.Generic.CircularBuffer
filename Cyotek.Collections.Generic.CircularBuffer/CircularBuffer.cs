@@ -298,7 +298,7 @@ namespace Cyotek.Collections.Generic
     /// </summary>
     /// <returns>The object that is removed from the beginning of the <see cref="CircularBuffer{T}"/>.</returns>
     /// <exception cref="System.InvalidOperationException">Thrown if the buffer is empty.</exception>
-    /// <remarks>This method is similar to the <see cref="Peek"/> method, but <see cref="Peek"/> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
+    /// <remarks>This method is similar to the <see cref="Peek()"/> method, but <c>Peek</c> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
     public virtual T Get()
     {
       T item;
@@ -309,7 +309,7 @@ namespace Cyotek.Collections.Generic
       }
 
       item = _buffer[this.Head];
-      if (++Head == this.Capacity)
+      if (++this.Head == this.Capacity)
       {
         this.Head = 0;
       }
@@ -416,7 +416,7 @@ namespace Cyotek.Collections.Generic
     /// <remarks>If <see cref="Size"/> plus the size of <paramref name="array"/> exceeds the capacity of the <see cref="CircularBuffer{T}"/> and the <see cref="AllowOverwrite"/> property is <c>true</c>, the oldest items in the <see cref="CircularBuffer{T}"/> are overwritten with <paramref name="array"/>.</remarks>
     public int Put(T[] array)
     {
-      return Put(array, 0, array.Length);
+      return this.Put(array, 0, array.Length);
     }
 
     /// <summary>

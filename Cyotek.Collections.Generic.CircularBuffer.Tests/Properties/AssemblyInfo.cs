@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Cyotek Application Framework")]
-[assembly: AssemblyCopyright("Copyright © 2014 Cyotek. All Rights Reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2014 Cyotek Ltd. All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
