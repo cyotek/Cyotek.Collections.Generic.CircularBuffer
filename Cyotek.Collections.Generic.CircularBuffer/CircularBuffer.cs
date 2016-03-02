@@ -52,7 +52,7 @@ namespace Cyotek.Collections.Generic
     {
       if (capacity < 0)
       {
-        throw new ArgumentException("The buffer capacity must be greater than or equal to zero.", "capacity");
+        throw new ArgumentException("The buffer capacity must be greater than or equal to zero.", nameof(capacity));
       }
 
       _buffer = new T[capacity];
@@ -89,7 +89,7 @@ namespace Cyotek.Collections.Generic
 
           if (value < this.Size)
           {
-            throw new ArgumentOutOfRangeException("value", value, "The new capacity must be greater than or equal to the buffer size.");
+            throw new ArgumentOutOfRangeException(nameof(value), value, "The new capacity must be greater than or equal to the buffer size.");
           }
 
           newBuffer = new T[value];
@@ -223,7 +223,7 @@ namespace Cyotek.Collections.Generic
 
       if (count > this.Size)
       {
-        throw new ArgumentOutOfRangeException("count", count, "The read count cannot be greater than the buffer size.");
+        throw new ArgumentOutOfRangeException(nameof(count), count, "The read count cannot be greater than the buffer size.");
       }
 
       bufferIndex = index;
