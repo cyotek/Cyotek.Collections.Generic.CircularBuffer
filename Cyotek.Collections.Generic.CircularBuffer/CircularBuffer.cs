@@ -429,29 +429,19 @@ namespace Cyotek.Collections.Generic
     /// <remarks>If <see cref="Size"/> plus <paramref name="count"/> exceeds the capacity of the <see cref="CircularBuffer{T}"/> and the <see cref="AllowOverwrite"/> property is <c>true</c>, the oldest items in the <see cref="CircularBuffer{T}"/> are overwritten with <paramref name="array"/>.</remarks>
     public virtual int Put(T[] array, int arrayIndex, int count)
     {
-      int srcIndex;
-
-      if (!this.AllowOverwrite && count > (this.Capacity - this.Size))
-      {
-        throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
-      }
-
-      srcIndex = arrayIndex;
-
-      for (int i = 0; i < count; i++, this.Tail++, srcIndex++)
-      {
-        if (this.Tail == this.Capacity)
-        {
-          this.Tail = 0;
+        if (!this.AllowOverwrite && count > (this.Capacity - this.Size)) {
+            throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
         }
 
-        _buffer[this.Tail] = array[srcIndex];
-      }
-
-      this.Size = Math.Min(this.Size + count, this.Capacity);
-
-      return count;
-    }
+        if (!this.AllowOverwrite && count > (this.Capacity - this.Size)) {
+            throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
+        }
+        int i;
+        for (i = 0; i < count; i++) {
+            this.Put(array[arrayIndex + i]);
+        }
+        return i;
+     }
 
     /// <summary>
     /// Adds an object to the end of the <see cref="CircularBuffer{T}"/>.
