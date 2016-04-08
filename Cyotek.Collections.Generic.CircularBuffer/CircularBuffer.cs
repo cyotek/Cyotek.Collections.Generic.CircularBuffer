@@ -432,10 +432,7 @@ namespace Cyotek.Collections.Generic
         if (!this.AllowOverwrite && count > (this.Capacity - this.Size)) {
             throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
         }
-
-        if (!this.AllowOverwrite && count > (this.Capacity - this.Size)) {
-            throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
-        }
+        
         int i;
         for (i = 0; i < count; i++) {
             this.Put(array[arrayIndex + i]);
