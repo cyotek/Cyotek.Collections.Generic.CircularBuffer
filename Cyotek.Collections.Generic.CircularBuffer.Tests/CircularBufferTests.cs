@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 {
@@ -1675,23 +1676,30 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     [Test]
     public void SkipWrapBufferTest()
     {
-      // arrange
-      CircularBuffer<byte> target;
-      byte[] expected;
+        // arrange
+        CircularBuffer<byte> target;
+        byte[] dataIn;
 
-      expected = this.GenerateRandomData(100);
+        dataIn = this.GenerateRandomData(100);
+        var HL = dataIn.Length / 2;
+        target = new CircularBuffer<byte>(dataIn.Length, true);
+        target.Put(this.GenerateRandomData(HL));
+        target.Put(dataIn);
 
-      target = new CircularBuffer<byte>(expected.Length, true);
-      target.Put(this.GenerateRandomData(expected.Length / 2));
-      target.Put(expected);
+        var expected = new byte[dataIn.Length];
+        Buffer.BlockCopy(dataIn, 0, expected, HL, HL);
+        Buffer.BlockCopy(dataIn, HL, expected, 0, HL);
 
-      // act
-      target.Skip(expected.Length - expected.Length / 2);
+        // act
+        target.Skip(HL);
 
-      // assert
-      target.ToArray().
-             Should().
-             Equal(expected);
+
+
+        var actual = target.ToArray();
+        // assert
+        actual.
+                Should().
+                Equal(expected);
     }
 
     [Test]
@@ -1751,6 +1759,52 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       // assert
       actual.Should().
              Equal(expected);
+    }
+
+    [Test]
+    public void PutWholeLengtWithoutCountToAllowOverwriteTest() {
+        CircularBuffer<int> target;
+        int[] actual;
+        int[] expected;
+        int bufSize = 3;
+        target = new CircularBuffer<int>(bufSize, true);
+
+        var values = new int[] { 4, 5, 6 };
+        expected = values.Take(bufSize).ToArray();
+        target.Put(values);
+
+        actual = target.ToArray();
+
+
+        actual.Should().Equal(expected);
+
+        var val = 99;
+        target.Put(val);
+        val.Should().Equals(target.PeekLast());
+
+    }
+
+    [Test]
+    public void PutWholeLengtWithCountToAllowOverwriteTest() {
+        CircularBuffer<int> target;
+        int[] actual;
+        int[] expected;
+        int bufSize = 3;
+        target = new CircularBuffer<int>(bufSize, true);
+
+        var values = new int[] { 4, 5, 6, 7, 8 };
+        expected = values.Take(bufSize).ToArray();
+        target.Put(values, 0, bufSize);
+
+        actual = target.ToArray();
+
+
+        actual.Should().Equal(expected);
+
+        var val = 99;
+        target.Put(val);
+        val.Should().Equals(target.PeekLast());
+
     }
 
     #endregion
