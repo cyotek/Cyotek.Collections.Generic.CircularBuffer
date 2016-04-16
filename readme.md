@@ -26,9 +26,9 @@ The `CircularBuffer<T>` mostly acts as a FIFO queue. You can use the `Put` metho
 
 To retrieve the next item without removing it from the buffer, you can use the `Peek` method. Or, to retrieve (again without removing) the last item in the buffer, you can use `PeekLast`.
 
-Calling `Get`, `Peek` or `PeekLast` on an empty buffer will thrown an exception, you can use `IsEmpty` to check if these actions will succeed. Similarly, calling `Put` on a full buffer with overwriting disabled will also throw an exception. You can use `IsFull` to check if this is the case.
+Calling `Get`, `Peek` or `PeekLast` on an empty buffer will thrown an exception. You can use `IsEmpty` to check if these actions will succeed. Similarly, calling `Put` on a full buffer with overwriting disabled will also throw an exception. You can use `IsFull` to check if this is the case.
 
-The `Size` property allows you to see how many items you've added to the buffer.
+The `Size` property allows you to see how many items you've added to the buffer. The `Capacity` property returns the maximum number of items the buffer can hold before the oldest items will be overwritten.
 
 The `ToArray` method will return all queued items, or you can use `CopyTo` as a more advanced alternative.
 
@@ -99,6 +99,8 @@ Syntax-wise, I don't remember changing any method signatures so they should work
 
 The only thing the original has that this version does not is localization support - the original version read exception messages from a resource file, whereas here they are just string literals.
 
+See `CONTRIBUTORS.md` for further details of updates to the `CircularBuffer<T>` class.
+
 ## License
 
-The code is licensed under the New BSD License (BSD) as per the original source this implementation is based upon. See `license.txt` for details.
+The code is licensed under the New BSD License (BSD) as per the original source this implementation is based upon. See `LICENSE.txt` for details.
