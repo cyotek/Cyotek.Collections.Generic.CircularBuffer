@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable CheckNamespace
+
 namespace Cyotek.Collections.Generic
 {
   /// <summary>

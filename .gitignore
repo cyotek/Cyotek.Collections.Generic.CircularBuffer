@@ -1,4 +1,3 @@
-nuget/
 packages/
 .vs/
 bin/
@@ -6,6 +5,7 @@ obj/
 _NCrunch_*/
 testresults/
 NDependOut/
+releases/
 
 *.ncrunchsolution
 *.ncrunchproject
