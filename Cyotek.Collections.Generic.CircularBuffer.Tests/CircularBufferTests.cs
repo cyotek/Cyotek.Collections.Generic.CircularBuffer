@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
-using System.Linq;
 
 namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 {
@@ -13,10 +13,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     #region  Tests
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException),
-      ExpectedMessage =
-        "The new capacity must be greater than or equal to the buffer size.\r\nParameter name: value\r\nActual value was 3."
-      )]
+    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "The new capacity must be greater than or equal to the buffer size.\r\nParameter name: value\r\nActual value was 3.")]
     public void CapacityExceptionTest()
     {
       // arrange
@@ -60,13 +57,9 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expectedCapacity;
 
       // assert
-      target.Capacity.Should().
-             Be(expectedCapacity);
-      target.Size.Should().
-             Be(expectedSize);
-      target.ToArray().
-             Should().
-             Equal(expectedItems);
+      target.Capacity.Should().Be(expectedCapacity);
+      target.Size.Should().Be(expectedSize);
+      target.ToArray().Should().Equal(expectedItems);
     }
 
     [Test]
@@ -84,8 +77,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expected;
 
       // assert
-      target.Capacity.Should().
-             Be(expected);
+      target.Capacity.Should().Be(expected);
     }
 
     [Test]
@@ -103,8 +95,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expected;
 
       // assert
-      target.Capacity.Should().
-             Be(expected);
+      target.Capacity.Should().Be(expected);
     }
 
     [Test]
@@ -129,12 +120,9 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Clear();
 
       // assert
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -158,15 +146,10 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       ((ICollection<string>)target).Add(expected);
 
       // assert
-      target.Contains(expected).
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      target.Contains(expected).Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -207,19 +190,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       ((ICollection)target).CopyTo(actual, offset);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeTrue();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeTrue();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -241,8 +216,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection)target).Count;
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -258,8 +232,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection<string>)target).IsReadOnly;
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -275,8 +248,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection)target).IsSynchronized;
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -297,8 +269,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentException),
-      ExpectedMessage = "The buffer capacity must be greater than or equal to zero.\r\nParameter name: capacity")]
+    [ExpectedException(typeof(ArgumentException), ExpectedMessage = "The buffer capacity must be greater than or equal to zero.\r\nParameter name: capacity")]
     public void ConstructorCapacityExceptionTest()
     {
       // act
@@ -319,10 +290,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity);
 
       // assert
-      target.Capacity.Should().
-             Be(expectedCapacity);
-      target.AllowOverwrite.Should().
-             BeTrue();
+      target.Capacity.Should().Be(expectedCapacity);
+      target.AllowOverwrite.Should().BeTrue();
     }
 
     [Test]
@@ -338,10 +307,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity, false);
 
       // assert
-      target.Capacity.Should().
-             Be(expectedCapacity);
-      target.AllowOverwrite.Should().
-             BeFalse();
+      target.Capacity.Should().Be(expectedCapacity);
+      target.AllowOverwrite.Should().BeFalse();
     }
 
     [Test]
@@ -357,10 +324,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity, true);
 
       // assert
-      target.Capacity.Should().
-             Be(expectedCapacity);
-      target.AllowOverwrite.Should().
-             BeTrue();
+      target.Capacity.Should().Be(expectedCapacity);
+      target.AllowOverwrite.Should().BeTrue();
     }
 
     [Test]
@@ -381,8 +346,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Alpha");
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -401,8 +365,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Delta");
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -421,8 +384,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Alpha");
 
       // assert
-      actual.Should().
-             BeTrue();
+      actual.Should().BeTrue();
     }
 
     [Test]
@@ -467,19 +429,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(index, actual, offset, count);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeTrue();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeTrue();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -520,19 +474,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(actual, offset);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeTrue();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeTrue();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -577,25 +523,15 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(index, actual, offset, count);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeTrue();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeTrue();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException),
-      ExpectedMessage =
-        "The read count cannot be greater than the buffer size.\r\nParameter name: count\r\nActual value was 4.")]
+    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "The read count cannot be greater than the buffer size.\r\nParameter name: count\r\nActual value was 4.")]
     public void CopyToExceptionTest()
     {
       // arrange
@@ -649,19 +585,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(actual);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeTrue();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeTrue();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -683,10 +611,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Get(actual);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Size.Should().
-             Be(0);
+      actual.Should().Equal(expected);
+      target.Size.Should().Be(0);
     }
 
     [Test]
@@ -726,14 +652,10 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       }
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      actual.Should().Equal(expected);
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -755,8 +677,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection<string>)target).Count;
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -809,8 +730,165 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       }
 
       // assert
-      actual.Should().
-             Equal(expected);
+      actual.Should().Equal(expected);
+    }
+
+    [Test]
+    public void GetLast_handles_wrapped_tail()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string expected;
+      string actual;
+
+      target = new CircularBuffer<string>(3);
+
+      expected = "Gamma";
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      actual = target.GetLast();
+
+      // assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void GetLast_should_decrease_size()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      int expected;
+      int actual;
+
+      target = new CircularBuffer<string>(10);
+
+      expected = 2;
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.GetLast();
+
+      // assert
+      actual = target.Size;
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void GetLast_should_decrease_tail()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      int expected;
+      int actual;
+
+      target = new CircularBuffer<string>(10);
+
+      expected = 2;
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.GetLast();
+
+      // assert
+      actual = target.Tail;
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    public void GetLast_should_not_affect_existing_items()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      bool actual1;
+      bool actual2;
+
+      target = new CircularBuffer<string>(10);
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.GetLast();
+
+      // assert
+      actual1 = target.Contains("Alpha");
+      actual2 = target.Contains("Beta");
+      Assert.IsTrue(actual1);
+      Assert.IsTrue(actual2);
+    }
+
+    [Test]
+    public void GetLast_should_remove_item()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      bool actual;
+
+      target = new CircularBuffer<string>(10);
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.GetLast();
+
+      // assert
+      actual = target.Contains("Gamma");
+      Assert.IsFalse(actual);
+    }
+
+    [Test]
+    public void GetLast_should_return_last_added_item()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string expected;
+      string actual;
+
+      target = new CircularBuffer<string>(10);
+
+      expected = "Gamma";
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      actual = target.GetLast();
+
+      // assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
+    public void GetLast_throws_exception_if_buffer_empty()
+    {
+      // arrange
+      CircularBuffer<string> target;
+
+      target = new CircularBuffer<string>(10);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+      target.Get();
+      target.Get();
+      target.Get();
+
+      // act
+      target.GetLast();
     }
 
     [Test]
@@ -833,8 +911,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -862,10 +939,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      actual.Should().
-             Be(expected);
-      target.Head.Should().
-             Be(expectedHead);
+      actual.Should().Be(expected);
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -894,23 +969,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      actual.Should().
-             Be(expected);
-      target.Contains("Alpha").
-             Should().
-             BeFalse();
-      target.Contains("Beta").
-             Should().
-             BeTrue();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      actual.Should().Be(expected);
+      target.Contains("Alpha").Should().BeFalse();
+      target.Contains("Beta").Should().BeTrue();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -953,28 +1018,15 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual, offset, expectedElements);
 
       // assert
-      actualElements.Should().
-                     Be(expectedElements);
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeFalse();
-      target.Contains("Beta").
-             Should().
-             BeFalse();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Contains("Delta").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      actualElements.Should().Be(expectedElements);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeFalse();
+      target.Contains("Beta").Should().BeFalse();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Contains("Delta").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -1012,25 +1064,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual);
 
       // assert
-      actualElements.Should().
-                     Be(expectedElements);
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeFalse();
-      target.Contains("Beta").
-             Should().
-             BeFalse();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      actualElements.Should().Be(expectedElements);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeFalse();
+      target.Contains("Beta").Should().BeFalse();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -1066,10 +1107,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual);
 
       // assert
-      actualElements.Should().
-                     Be(expectedElements);
-      actual.Should().
-             Equal(expected);
+      actualElements.Should().Be(expectedElements);
+      actual.Should().Equal(expected);
     }
 
     [Test]
@@ -1102,23 +1141,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get(2);
 
       // assert
-      actual.Should().
-             Equal(expected);
-      target.Contains("Alpha").
-             Should().
-             BeFalse();
-      target.Contains("Beta").
-             Should().
-             BeFalse();
-      target.Contains("Gamma").
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      actual.Should().Equal(expected);
+      target.Contains("Alpha").Should().BeFalse();
+      target.Contains("Beta").Should().BeFalse();
+      target.Contains("Gamma").Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -1162,10 +1191,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual, offset, count);
 
       // assert
-      actualElements.Should().
-                     Be(expectedElements);
-      actual.Should().
-             Equal(expected);
+      actualElements.Should().Be(expectedElements);
+      actual.Should().Equal(expected);
     }
 
     [Test]
@@ -1191,8 +1218,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -1208,8 +1234,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsEmpty;
 
       // assert
-      actual.Should().
-             BeTrue();
+      actual.Should().BeTrue();
     }
 
     [Test]
@@ -1227,8 +1252,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsEmpty;
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -1246,8 +1270,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -1267,8 +1290,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      actual.Should().
-             BeTrue();
+      actual.Should().BeTrue();
     }
 
     [Test]
@@ -1288,8 +1310,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      actual.Should().
-             BeFalse();
+      actual.Should().BeFalse();
     }
 
     [Test]
@@ -1328,8 +1349,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Peek(2);
 
       // assert
-      actual.Should().
-             Equal(expected);
+      actual.Should().Equal(expected);
     }
 
     [Test]
@@ -1377,8 +1397,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekLast();
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -1400,8 +1419,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekLast();
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -1423,13 +1441,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Peek();
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException),
-      ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
+    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
     public void PutArrayExceptionTest()
     {
       // arrange
@@ -1460,14 +1476,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected);
 
       // assert
-      target.ToArray().
-             Should().
-             Equal(expected);
+      target.ToArray().Should().Equal(expected);
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException),
-      ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
+    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
     public void PutBufferFullExceptionTest()
     {
       // arrange
@@ -1509,21 +1522,12 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected3);
 
       // assert
-      target.Contains(expected1).
-             Should().
-             BeTrue();
-      target.Contains(expected2).
-             Should().
-             BeTrue();
-      target.Contains(expected3).
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      target.Contains(expected1).Should().BeTrue();
+      target.Contains(expected2).Should().BeTrue();
+      target.Contains(expected3).Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -1547,15 +1551,66 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected);
 
       // assert
-      target.Contains(expected).
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      target.Contains(expected).Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
+    }
+
+    [Test]
+    public void PutWholeLengtWithCountToAllowOverwriteTest()
+    {
+      CircularBuffer<int> target;
+      int[] actual;
+      int[] expected;
+      int bufSize = 3;
+      target = new CircularBuffer<int>(bufSize, true);
+
+      int[] values = new int[]
+                     {
+                       4,
+                       5,
+                       6,
+                       7,
+                       8
+                     };
+      expected = values.Take(bufSize).ToArray();
+      target.Put(values, 0, bufSize);
+
+      actual = target.ToArray();
+
+      actual.Should().Equal(expected);
+
+      int val = 99;
+      target.Put(val);
+      val.Should().Equals(target.PeekLast());
+    }
+
+    [Test]
+    public void PutWholeLengtWithoutCountToAllowOverwriteTest()
+    {
+      CircularBuffer<int> target;
+      int[] actual;
+      int[] expected;
+      int bufSize = 3;
+      target = new CircularBuffer<int>(bufSize, true);
+
+      int[] values = new int[]
+                     {
+                       4,
+                       5,
+                       6
+                     };
+      expected = values.Take(bufSize).ToArray();
+      target.Put(values);
+
+      actual = target.ToArray();
+
+      actual.Should().Equal(expected);
+
+      int val = 99;
+      target.Put(val);
+      val.Should().Equals(target.PeekLast());
     }
 
     [Test]
@@ -1588,24 +1643,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected4);
 
       // assert
-      target.Contains(expected1).
-             Should().
-             BeFalse();
-      target.Contains(expected2).
-             Should().
-             BeTrue();
-      target.Contains(expected3).
-             Should().
-             BeTrue();
-      target.Contains(expected4).
-             Should().
-             BeTrue();
-      target.Head.Should().
-             Be(expectedHead);
-      target.Tail.Should().
-             Be(expectedTail);
-      target.Size.Should().
-             Be(expectedSize);
+      target.Contains(expected1).Should().BeFalse();
+      target.Contains(expected2).Should().BeTrue();
+      target.Contains(expected3).Should().BeTrue();
+      target.Contains(expected4).Should().BeTrue();
+      target.Head.Should().Be(expectedHead);
+      target.Tail.Should().Be(expectedTail);
+      target.Size.Should().Be(expectedSize);
     }
 
     [Test]
@@ -1627,8 +1671,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Size;
 
       // assert
-      actual.Should().
-             Be(expected);
+      actual.Should().Be(expected);
     }
 
     [Test]
@@ -1646,8 +1689,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Skip(50);
 
       // assert
-      target.Head.Should().
-             Be(expectedHead);
+      target.Head.Should().Be(expectedHead);
     }
 
     [Test]
@@ -1669,37 +1711,32 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Skip(2);
 
       // assert
-      target.Head.Should().
-             Be(expected);
+      target.Head.Should().Be(expected);
     }
 
     [Test]
     public void SkipWrapBufferTest()
     {
-        // arrange
-        CircularBuffer<byte> target;
-        byte[] dataIn;
+      // arrange
+      CircularBuffer<byte> target;
+      byte[] dataIn;
 
-        dataIn = this.GenerateRandomData(100);
-        var HL = dataIn.Length / 2;
-        target = new CircularBuffer<byte>(dataIn.Length, true);
-        target.Put(this.GenerateRandomData(HL));
-        target.Put(dataIn);
+      dataIn = this.GenerateRandomData(100);
+      int HL = dataIn.Length / 2;
+      target = new CircularBuffer<byte>(dataIn.Length, true);
+      target.Put(this.GenerateRandomData(HL));
+      target.Put(dataIn);
 
-        var expected = new byte[dataIn.Length];
-        Buffer.BlockCopy(dataIn, 0, expected, HL, HL);
-        Buffer.BlockCopy(dataIn, HL, expected, 0, HL);
+      byte[] expected = new byte[dataIn.Length];
+      Buffer.BlockCopy(dataIn, 0, expected, HL, HL);
+      Buffer.BlockCopy(dataIn, HL, expected, 0, HL);
 
-        // act
-        target.Skip(HL);
+      // act
+      target.Skip(HL);
 
-
-
-        var actual = target.ToArray();
-        // assert
-        actual.
-                Should().
-                Equal(expected);
+      byte[] actual = target.ToArray();
+      // assert
+      actual.Should().Equal(expected);
     }
 
     [Test]
@@ -1728,8 +1765,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.ToArray();
 
       // assert
-      actual.Should().
-             Equal(expected);
+      actual.Should().Equal(expected);
     }
 
     [Test]
@@ -1757,54 +1793,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.ToArray();
 
       // assert
-      actual.Should().
-             Equal(expected);
-    }
-
-    [Test]
-    public void PutWholeLengtWithoutCountToAllowOverwriteTest() {
-        CircularBuffer<int> target;
-        int[] actual;
-        int[] expected;
-        int bufSize = 3;
-        target = new CircularBuffer<int>(bufSize, true);
-
-        var values = new int[] { 4, 5, 6 };
-        expected = values.Take(bufSize).ToArray();
-        target.Put(values);
-
-        actual = target.ToArray();
-
-
-        actual.Should().Equal(expected);
-
-        var val = 99;
-        target.Put(val);
-        val.Should().Equals(target.PeekLast());
-
-    }
-
-    [Test]
-    public void PutWholeLengtWithCountToAllowOverwriteTest() {
-        CircularBuffer<int> target;
-        int[] actual;
-        int[] expected;
-        int bufSize = 3;
-        target = new CircularBuffer<int>(bufSize, true);
-
-        var values = new int[] { 4, 5, 6, 7, 8 };
-        expected = values.Take(bufSize).ToArray();
-        target.Put(values, 0, bufSize);
-
-        actual = target.ToArray();
-
-
-        actual.Should().Equal(expected);
-
-        var val = 99;
-        target.Put(val);
-        val.Should().Equals(target.PeekLast());
-
+      actual.Should().Equal(expected);
     }
 
     #endregion
