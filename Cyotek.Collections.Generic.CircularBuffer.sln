@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cyotek.Collections.Generic.CircularBuffer", "Cyotek.Collections.Generic.CircularBuffer\Cyotek.Collections.Generic.CircularBuffer.csproj", "{2ED127E6-9B7A-4828-AE46-F3553F61F209}"
 EndProject
@@ -9,11 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cyotek.Collections.Generic.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A644FACA-1DA6-4861-9304-3D1A41329D80}"
 	ProjectSection(SolutionItems) = preProject
-		build.cmd = build.cmd
 		CHANGELOG.md = CHANGELOG.md
 		CONTRIBUTORS.md = CONTRIBUTORS.md
 		LICENSE.txt = LICENSE.txt
-		push.cmd = push.cmd
 		README.md = README.md
 	EndProjectSection
 EndProject

@@ -1,11 +1,6 @@
 Change Log
 ==========
 
-1.1.0-alpha
------------
-### Added
-* Added `GetLast` method to complement `PeekLast`, allowing the class to be used as a last-in, first-out stack without reflection hacks.
-
 1.0.1
 -----
 ### Changed

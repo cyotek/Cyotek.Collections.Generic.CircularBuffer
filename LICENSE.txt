@@ -1,6 +1,6 @@
 New BSD License (BSD)
 
-Copyright (c) 2014-2017 Cyotek Ltd
+Copyright (c) 2014-2015 Cyotek Ltd
 Copyright (c) 2012, Alex Regueiro
 All rights reserved.
 

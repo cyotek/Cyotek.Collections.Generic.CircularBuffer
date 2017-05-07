@@ -21,7 +21,10 @@ namespace Cyotek.Collections.Generic
   /// </remarks>
   public class CircularBuffer<T> : ICollection<T>, ICollection
   {
-    #region Fields
+    // based on http://circularbuffer.codeplex.com/
+    // http://en.wikipedia.org/wiki/Circular_buffer
+
+    #region Instance Fields
 
     private T[] _buffer;
 
@@ -32,7 +35,7 @@ namespace Cyotek.Collections.Generic
 
     #endregion
 
-    #region Constructors
+    #region Public Constructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CircularBuffer{T}"/> class that is empty and has the specified initial capacity and default overwrite behavior.
@@ -65,7 +68,7 @@ namespace Cyotek.Collections.Generic
 
     #endregion
 
-    #region Properties
+    #region Public Properties
 
     /// <summary>
     /// Gets or sets a value indicating whether the buffer will automatically overwrite the oldest items in the buffer when the maximum capacity is reached.
@@ -144,7 +147,52 @@ namespace Cyotek.Collections.Generic
 
     #endregion
 
-    #region Methods
+    #region Public Members
+
+    /// <summary>
+    /// Removes all items from the <see cref="CircularBuffer{T}" />.
+    /// </summary>
+    public void Clear()
+    {
+      this.Size = 0;
+      this.Head = 0;
+      this.Tail = 0;
+      _buffer = new T[this.Capacity];
+    }
+
+    /// <summary>
+    /// Determines whether the <see cref="CircularBuffer{T}" /> contains a specific value.
+    /// </summary>
+    /// <param name="item">The object to locate in the <see cref="CircularBuffer{T}" />.</param>
+    /// <returns><c>true</c> if <paramref name="item" /> is found in the <see cref="CircularBuffer{T}" />; otherwise, <c>false</c>.</returns>
+    public bool Contains(T item)
+    {
+      int bufferIndex;
+      EqualityComparer<T> comparer;
+      bool result;
+
+      bufferIndex = this.Head;
+      comparer = EqualityComparer<T>.Default;
+      result = false;
+
+      for (int i = 0; i < this.Size; i++, bufferIndex++)
+      {
+        if (bufferIndex == this.Capacity)
+        {
+          bufferIndex = 0;
+        }
+
+        // ReSharper disable CompareNonConstrainedGenericWithNull
+        if ((item == null && _buffer[bufferIndex] == null) || _buffer[bufferIndex] != null && comparer.Equals(_buffer[bufferIndex], item))
+        {
+          result = true;
+          break;
+        }
+        // ReSharper restore CompareNonConstrainedGenericWithNull
+      }
+
+      return result;
+    }
 
     /// <summary>
     /// Copies the entire <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array.
@@ -153,6 +201,16 @@ namespace Cyotek.Collections.Generic
     public void CopyTo(T[] array)
     {
       this.CopyTo(array, 0);
+    }
+
+    /// <summary>
+    /// Copies the entire <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array.
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+      this.CopyTo(this.Head, array, arrayIndex, Math.Min(this.Size, array.Length - arrayIndex));
     }
 
     /// <summary>
@@ -285,34 +343,6 @@ namespace Cyotek.Collections.Generic
     }
 
     /// <summary>
-    /// Removes and returns the object at the end of the <see cref="CircularBuffer{T}"/>.
-    /// </summary>
-    /// <returns>The object that is removed from the ebd of the <see cref="CircularBuffer{T}"/>.</returns>
-    /// <exception cref="System.InvalidOperationException">Thrown if the buffer is empty.</exception>
-    /// <remarks>This method is similar to the <see cref="PeekLast"/> method, but <c>PeekLast</c> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
-    public virtual T GetLast()
-    {
-      T item;
-      int index;
-
-      if (this.IsEmpty)
-      {
-        throw new InvalidOperationException("The buffer is empty.");
-      }
-
-      index = this.GetTailIndex();
-      item = _buffer[index];
-
-      if (--this.Tail < 0)
-      {
-        this.Tail = 0;
-      }
-      this.Size--;
-
-      return item;
-    }
-
-    /// <summary>
     /// Returns the object at the beginning of the <see cref="CircularBuffer{T}"/> without removing it.
     /// </summary>
     /// <returns>The object at the beginning of the <see cref="CircularBuffer{T}"/>.</returns>
@@ -360,15 +390,23 @@ namespace Cyotek.Collections.Generic
     public virtual T PeekLast()
     {
       T item;
-      int index;
+      int bufferIndex;
 
       if (this.IsEmpty)
       {
         throw new InvalidOperationException("The buffer is empty.");
       }
 
-      index = this.GetTailIndex();
-      item = _buffer[index];
+      if (this.Tail == 0)
+      {
+        bufferIndex = this.Size - 1;
+      }
+      else
+      {
+        bufferIndex = this.Tail - 1;
+      }
+
+      item = _buffer[bufferIndex];
 
       return item;
     }
@@ -394,18 +432,16 @@ namespace Cyotek.Collections.Generic
     /// <remarks>If <see cref="Size"/> plus <paramref name="count"/> exceeds the capacity of the <see cref="CircularBuffer{T}"/> and the <see cref="AllowOverwrite"/> property is <c>true</c>, the oldest items in the <see cref="CircularBuffer{T}"/> are overwritten with <paramref name="array"/>.</remarks>
     public virtual int Put(T[] array, int arrayIndex, int count)
     {
-      if (!this.AllowOverwrite && count > this.Capacity - this.Size)
-      {
-        throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
-      }
-
-      int i;
-      for (i = 0; i < count; i++)
-      {
-        this.Put(array[arrayIndex + i]);
-      }
-      return i;
-    }
+        if (!this.AllowOverwrite && count > (this.Capacity - this.Size)) {
+            throw new InvalidOperationException("The buffer does not have sufficient capacity to put new items.");
+        }
+        
+        int i;
+        for (i = 0; i < count; i++) {
+            this.Put(array[arrayIndex + i]);
+        }
+        return i;
+     }
 
     /// <summary>
     /// Adds an object to the end of the <see cref="CircularBuffer{T}"/>.
@@ -474,35 +510,9 @@ namespace Cyotek.Collections.Generic
       return result;
     }
 
-    private int GetTailIndex()
-    {
-      int bufferIndex;
-
-      if (this.Tail == 0)
-      {
-        bufferIndex = this.Size - 1;
-      }
-      else
-      {
-        bufferIndex = this.Tail - 1;
-      }
-
-      return bufferIndex;
-    }
-
     #endregion
 
-    #region ICollection Interface
-
-    /// <summary>
-    /// Copies the elements of the <see cref="ICollection"/> to an <see cref="Array"/>, starting at a particular <see cref="Array"/> index.
-    /// </summary>
-    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="ICollection"/>. The <see cref="Array"/> must have zero-based indexing.</param>
-    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
-    void ICollection.CopyTo(Array array, int arrayIndex)
-    {
-      this.CopyTo((T[])array, arrayIndex);
-    }
+    #region ICollection Members
 
     /// <summary>
     /// Gets the number of elements contained in the <see cref="ICollection" />.
@@ -539,63 +549,36 @@ namespace Cyotek.Collections.Generic
       }
     }
 
+    /// <summary>
+    /// Copies the elements of the <see cref="ICollection"/> to an <see cref="Array"/>, starting at a particular <see cref="Array"/> index.
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="ICollection"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+    void ICollection.CopyTo(Array array, int arrayIndex)
+    {
+      this.CopyTo((T[])array, arrayIndex);
+    }
+
     #endregion
 
-    #region ICollection<T> Interface
+    #region ICollection<T> Members
 
     /// <summary>
-    /// Removes all items from the <see cref="CircularBuffer{T}" />.
+    /// Gets the number of elements contained in the <see cref="ICollection{T}" />.
     /// </summary>
-    public void Clear()
+    /// <value>The number of elements actually contained in the <see cref="ICollection{T}" />.</value>
+    int ICollection<T>.Count
     {
-      this.Size = 0;
-      this.Head = 0;
-      this.Tail = 0;
-      _buffer = new T[this.Capacity];
+      get { return this.Size; }
     }
 
     /// <summary>
-    /// Determines whether the <see cref="CircularBuffer{T}" /> contains a specific value.
+    /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
     /// </summary>
-    /// <param name="item">The object to locate in the <see cref="CircularBuffer{T}" />.</param>
-    /// <returns><c>true</c> if <paramref name="item" /> is found in the <see cref="CircularBuffer{T}" />; otherwise, <c>false</c>.</returns>
-    public bool Contains(T item)
+    /// <value><c>true</c> if the <see cref="ICollection{T}"/> is read-only; otherwise, <c>false</c>. In the default implementation of <see cref="CircularBuffer{T}"/>, this property always returns <c>false</c>.</value>
+    bool ICollection<T>.IsReadOnly
     {
-      int bufferIndex;
-      EqualityComparer<T> comparer;
-      bool result;
-
-      bufferIndex = this.Head;
-      comparer = EqualityComparer<T>.Default;
-      result = false;
-
-      for (int i = 0; i < this.Size; i++, bufferIndex++)
-      {
-        if (bufferIndex == this.Capacity)
-        {
-          bufferIndex = 0;
-        }
-
-        // ReSharper disable CompareNonConstrainedGenericWithNull
-        if (item == null && _buffer[bufferIndex] == null || _buffer[bufferIndex] != null && comparer.Equals(_buffer[bufferIndex], item))
-        {
-          result = true;
-          break;
-        }
-        // ReSharper restore CompareNonConstrainedGenericWithNull
-      }
-
-      return result;
-    }
-
-    /// <summary>
-    /// Copies the entire <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array.
-    /// </summary>
-    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
-    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
-    public void CopyTo(T[] array, int arrayIndex)
-    {
-      this.CopyTo(this.Head, array, arrayIndex, Math.Min(this.Size, array.Length - arrayIndex));
+      get { return false; }
     }
 
     /// <summary>
@@ -605,6 +588,17 @@ namespace Cyotek.Collections.Generic
     void ICollection<T>.Add(T item)
     {
       this.Put(item);
+    }
+
+    /// <summary>
+    /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+    /// </summary>
+    /// <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
+    /// <returns><c>true</c> if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, <c>false</c>. This method also returns <c>false</c> if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.</returns>
+    /// <exception cref="System.NotSupportedException">Cannot remove items from collection.</exception>
+    bool ICollection<T>.Remove(T item)
+    {
+      throw new NotSupportedException("Cannot remove items from collection.");
     }
 
     /// <summary>
@@ -625,39 +619,6 @@ namespace Cyotek.Collections.Generic
       return this.GetEnumerator();
     }
 
-    /// <summary>
-    /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
-    /// </summary>
-    /// <param name="item">The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.</param>
-    /// <returns><c>true</c> if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, <c>false</c>. This method also returns <c>false</c> if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.</returns>
-    /// <exception cref="System.NotSupportedException">Cannot remove items from collection.</exception>
-    bool ICollection<T>.Remove(T item)
-    {
-      throw new NotSupportedException("Cannot remove items from collection.");
-    }
-
-    /// <summary>
-    /// Gets the number of elements contained in the <see cref="ICollection{T}" />.
-    /// </summary>
-    /// <value>The number of elements actually contained in the <see cref="ICollection{T}" />.</value>
-    int ICollection<T>.Count
-    {
-      get { return this.Size; }
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
-    /// </summary>
-    /// <value><c>true</c> if the <see cref="ICollection{T}"/> is read-only; otherwise, <c>false</c>. In the default implementation of <see cref="CircularBuffer{T}"/>, this property always returns <c>false</c>.</value>
-    bool ICollection<T>.IsReadOnly
-    {
-      get { return false; }
-    }
-
     #endregion
-
-    // http://en.wikipedia.org/wiki/Circular_buffer
-
-    // based on http://circularbuffer.codeplex.com/
   }
 }
