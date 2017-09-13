@@ -2,9 +2,9 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7?svg=true)](https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer)
 
-The `CircularBuffer<T>` class is a data structure that uses a single, fixed-size buffer that behaves as if it were connected end-to-end. You can use it as a first-in, first-out collection of objects with automatic overwrite support and no array resizing or allocations.  
+The `CircularBuffer<T>` class is a data structure that uses a single, fixed-size buffer that behaves as if it were connected end-to-end. You can use it as collection of objects with automatic overwrite support and no array resizing or allocations. The design of the buffer allows it to be used as both a first-in, first-out queue, or a first-in, last-out stack.  
 
-You can drop the class directly into your projects to use as-is, or reference the assembly. A NuGet package is [also available](https://www.nuget.org/packages/Cyotek.CircularBuffer/).
+You can drop the class directly into your projects to use as-is, or reference the assembly. A NuGet package is [also available](https://www.nuget.org/packages/Cyotek.CircularBuffer/). The class has no external dependencies aside from a reference to `System.dll`.
 
 ## Overwrite support
 
@@ -20,13 +20,13 @@ The internal buffer of the class is created whenever the `Capacity` property is 
 
 ## Using the class
 
-The `CircularBuffer<T>` mostly acts as a FIFO queue. You can use the `Put` method to put one or more items into the buffer, and then retrieve one or more items using one of the `Get` methods.
+The `CircularBuffer<T>` mostly acts as a FIFO queue. You can use the `Put` method to put one or more items into the buffer, and then retrieve one or more items using one of the `Get` methods. However, you can also use it as FILO stack by using the `GetLast` method.
 
-> **Note:** When you `Get` an item, it still remains in the buffer, but the `Head` and `Size` properties are adjusted so that you'll never get that item again no matter what methods you call. I'm not sure yet whether that is an acceptable approach, or again if I should reset the entry to `default(T)`.
+> **Note:** When you retrieve an item (or items), references to the items still remain in the internal buffer. The `Head` and `Size` properties are adjusted so that you'll never get that item again no matter what methods you call. I'm not sure yet whether that is an acceptable approach, or if I should reset the entry to `default(T)`.
 
 To retrieve the next item without removing it from the buffer, you can use the `Peek` method. Or, to retrieve (again without removing) the last item in the buffer, you can use `PeekLast`.
 
-Calling `Get`, `Peek` or `PeekLast` on an empty buffer will thrown an exception. You can use `IsEmpty` to check if these actions will succeed. Similarly, calling `Put` on a full buffer with overwriting disabled will also throw an exception. You can use `IsFull` to check if this is the case.
+Calling `Get`, `GetLast`, `Peek` or `PeekLast` on an empty buffer will thrown an exception. You can use `IsEmpty` to check if these actions will succeed. Similarly, calling `Put` on a full buffer with overwriting disabled will also throw an exception. You can use `IsFull` to check if this is the case.
 
 The `Size` property allows you to see how many items you've added to the buffer. The `Capacity` property returns the maximum number of items the buffer can hold before the oldest items will be overwritten.
 
