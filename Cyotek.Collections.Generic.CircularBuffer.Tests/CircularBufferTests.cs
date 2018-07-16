@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     #region  Tests
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "The new capacity must be greater than or equal to the buffer size.\r\nParameter name: value\r\nActual value was 3.")]
     public void CapacityExceptionTest()
     {
       // arrange
@@ -28,7 +27,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Delta");
 
       // act
-      target.Capacity = expected;
+      var ex = Assert.Throws<ArgumentOutOfRangeException>(() => { target.Capacity = expected; });
+      Assert.AreEqual(ex.Message, "The new capacity must be greater than or equal to the buffer size.\r\nParameter name: value\r\nActual value was 3.");
     }
 
     [Test]
@@ -251,7 +251,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(NotSupportedException), ExpectedMessage = "Cannot remove items from collection.")]
     public void CollectionRemoveTest()
     {
       // arrange
@@ -264,16 +263,17 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Delta");
 
       // act
-      ((ICollection<string>)target).Remove("Alpha");
+      var ex = Assert.Throws<NotSupportedException>(() => { ((ICollection<string>) target).Remove("Alpha"); });
+      Assert.AreEqual(ex.Message, "Cannot remove items from collection.");
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentException), ExpectedMessage = "The buffer capacity must be greater than or equal to zero.\r\nParameter name: capacity")]
     public void ConstructorCapacityExceptionTest()
     {
       // act
       // ReSharper disable once ObjectCreationAsStatement
-      new CircularBuffer<string>(-1);
+      var ex = Assert.Throws<ArgumentException>(() => { new CircularBuffer<string>(-1); });
+      Assert.AreEqual(ex.Message, "The buffer capacity must be greater than or equal to zero.\r\nParameter name: capacity");
     }
 
     [Test]
@@ -530,7 +530,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "The read count cannot be greater than the buffer size.\r\nParameter name: count\r\nActual value was 4.")]
     public void CopyToExceptionTest()
     {
       // arrange
@@ -552,7 +551,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Gamma");
 
       // act
-      target.CopyTo(index, actual, offset, count);
+      var ex = Assert.Throws<ArgumentOutOfRangeException>(() => { target.CopyTo(index, actual, offset, count); });
+      Assert.AreEqual(ex.Message, "The read count cannot be greater than the buffer size.\r\nParameter name: count\r\nActual value was 4.");
     }
 
     [Test]
@@ -680,7 +680,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void GetEmptyExceptionTest()
     {
       // arrange
@@ -695,7 +694,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Get();
 
       // act
-      target.Get();
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.Get(); });
+      Assert.AreEqual(ex.Message, "The buffer is empty.");
     }
 
     [Test]
@@ -872,7 +872,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void GetLast_throws_exception_if_buffer_empty()
     {
       // arrange
@@ -887,7 +886,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Get();
 
       // act
-      target.GetLast();
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.GetLast(); });
+      Assert.AreEqual(ex.Message, "The buffer is empty.");
     }
 
     [Test]
@@ -1313,7 +1313,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void PeekArrayEmptyExceptionTest()
     {
       // arrange
@@ -1322,7 +1321,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(10);
 
       // act
-      target.Peek(2);
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.Peek(2); });
+      Assert.AreEqual(ex.Message, "The buffer is empty.");
     }
 
     [Test]
@@ -1352,7 +1352,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void PeekEmptyExceptionTest()
     {
       // arrange
@@ -1361,11 +1360,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(10);
 
       // act
-      target.Peek();
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.Peek(); });
+      Assert.AreEqual(ex.Message, "The buffer is empty.");
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void PeekLastEmptyExceptionTest()
     {
       // arrange
@@ -1374,7 +1373,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(10);
 
       // act
-      target.PeekLast();
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.PeekLast(); });
+      Assert.AreEqual(ex.Message, "The buffer is empty.");
     }
 
     [Test]
@@ -1444,7 +1444,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
     public void PutArrayExceptionTest()
     {
       // arrange
@@ -1457,7 +1456,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(byte.MaxValue);
 
       // act
-      target.Put(expected);
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.Put(expected); });
+      Assert.AreEqual(ex.Message, "The buffer does not have sufficient capacity to put new items.");
     }
 
     [Test]
@@ -1479,7 +1479,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer does not have sufficient capacity to put new items.")]
     public void PutBufferFullExceptionTest()
     {
       // arrange
@@ -1491,7 +1490,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Beta");
 
       // act
-      target.Put("Gamma");
+      var ex = Assert.Throws<InvalidOperationException>(() => { target.Put("Gamma"); });
+      Assert.AreEqual(ex.Message, "The buffer does not have sufficient capacity to put new items.");
     }
 
     [Test]
@@ -1793,13 +1793,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
     private Random _random;
 
-    [TestFixtureTearDown]
+    [OneTimeTearDown]
     public void CleanUp()
     {
       _random = null;
     }
 
-    [TestFixtureSetUp]
+    [OneTimeSetUp]
     public void Setup()
     {
       _random = new Random();
