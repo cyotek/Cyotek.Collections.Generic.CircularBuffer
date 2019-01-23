@@ -37,7 +37,11 @@
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFrameworks>net40;netstandard1.0;netstandard2.0</TargetFrameworks>
+    <PackageId>Cyotek.CircularBuffer</PackageId>
+    <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>cyopublic.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
@@ -74,4 +78,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+</Project>
+    <None Include="cyopublic.snk" />
+  </ItemGroup>
 </Project>
