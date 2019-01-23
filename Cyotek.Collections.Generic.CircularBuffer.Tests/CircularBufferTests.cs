@@ -261,7 +261,6 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Gamma");
       target.Put("Delta");
 
-<<<<<<< HEAD
       // act & assert
       Assert.That(() => ((ICollection<string>)target).Remove("Alpha"), Throws.TypeOf<NotSupportedException>());
     }
