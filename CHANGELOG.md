@@ -10,6 +10,13 @@
   retrieved and removed with a single call
 * Added `PeekLast` overloads that allow multiple items to be
   retrieved, but not removed with a single call
+* Added several new build targets, including .NET Standard and
+  .NET Core, in addition to several legacy Framework
+
+### Changed
+
+* Converted project to SDK style
+* Build process now uses `dotnet.exe`
 
 ## 1.1.0-alpha
 
