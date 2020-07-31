@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -1349,6 +1349,95 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // assert
       CollectionAssert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    [TestCase(0, "Alpha")]
+    [TestCase(1, "Beta")]
+    [TestCase(2, "Gamma")]
+    public void PeekAtTestCases(int index, string expected)
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string actual;
+
+      target = new CircularBuffer<string>(10);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      actual = target.PeekAt(index);
+
+      // assert
+      Assert.AreEqual(expected, actual);
+    }
+    
+    [Test]
+    public void PeekAtWrapTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string actual;
+      string expected;
+
+      target = new CircularBuffer<string>(2);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      expected = "Gamma";
+
+      // act
+      actual = target.PeekAt(1);
+
+      // assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
+    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Index must be between 0 and 3.\r\nParameter name: index\r\nActual value was -1.")]
+    public void PeekAtEmptyExceptionTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+
+      target = new CircularBuffer<string>(10);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.PeekAt(-1);
+    }
+
+    [Test]
+    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Index must be between 0 and 3.\r\nParameter name: index\r\nActual value was 3.")]
+    public void PeekAtBelowBoundsExceptionTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+
+      target = new CircularBuffer<string>(10);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      target.PeekAt(3);
+    }
+
+    [Test]
+    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
+    public void PeekAtAboveBoundsExceptionTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+
+      target = new CircularBuffer<string>(10);
+
+      // act
+      target.PeekAt(-1);
     }
 
     [Test]

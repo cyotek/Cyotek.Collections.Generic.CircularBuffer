@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -287,6 +287,21 @@ namespace Cyotek.Collections.Generic
       }
     }
 
+    public T PeekAt(int index)
+    {
+      if (this.IsEmpty)
+      {
+        throw new InvalidOperationException("The buffer is empty.");
+      }
+
+      if (index < 0 || index >= this.Size)
+      {
+        throw new ArgumentOutOfRangeException(nameof(index), index, string.Format("Index must be between 0 and {0}.", this.Size));
+      }
+
+      return _buffer[this.GetIndex(index)];
+    }
+
     /// <summary>
     /// Removes and returns the object at the end of the <see cref="CircularBuffer{T}"/>.
     /// </summary>
@@ -452,12 +467,21 @@ namespace Cyotek.Collections.Generic
     /// <param name="count">The number of elements to increment the data buffer start index by.</param>
     public void Skip(int count)
     {
-      this.Head += count;
+      this.Head = this.GetIndex(count);
+    }
 
-      if (this.Head >= this.Capacity)
+    private int GetIndex(int index)
+    {
+      int newIndex;
+
+      newIndex = this.Head + index;
+
+      if (newIndex >= this.Capacity)
       {
-        this.Head -= this.Capacity;
+        newIndex -= this.Capacity;
       }
+
+      return newIndex;
     }
 
     /// <summary>
