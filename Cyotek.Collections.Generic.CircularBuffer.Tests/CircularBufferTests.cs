@@ -1150,6 +1150,85 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
+    public void GetLastWithCountTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      int expectedSize;
+      int expectedHead;
+      int expectedTail;
+      string[] expected;
+      string[] actual;
+
+      target = new CircularBuffer<string>(10);
+
+      expected = new[]
+                 {
+                   "Beta",
+                   "Gamma"
+                 };
+      expectedHead = 0;
+      expectedSize = 1;
+      expectedTail = 1;
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      actual = target.GetLast(2);
+
+      // assert
+      CollectionAssert.AreEqual(expected, actual);
+      Assert.IsTrue(target.Contains("Alpha"));
+      Assert.IsFalse(target.Contains("Beta"));
+      Assert.IsFalse(target.Contains("Gamma"));
+      Assert.AreEqual(expectedHead, target.Head);
+      Assert.AreEqual(expectedTail, target.Tail);
+      Assert.AreEqual(expectedSize, target.Size);
+
+    }
+
+    [Test]
+    public void PeekLastWithCountTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      int expectedSize;
+      int expectedHead;
+      int expectedTail;
+      string[] expected;
+      string[] actual;
+
+      target = new CircularBuffer<string>(10);
+
+      expected = new[]
+                 {
+                   "Beta",
+                   "Gamma"
+                 };
+      expectedHead = 0;
+      expectedSize = 3;
+      expectedTail = 3;
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+
+      // act
+      actual = target.PeekLast(2);
+
+      // assert
+      CollectionAssert.AreEqual(expected, actual);
+      Assert.IsTrue(target.Contains("Alpha"));
+      Assert.IsTrue(target.Contains("Beta"));
+      Assert.IsTrue(target.Contains("Gamma"));
+      Assert.AreEqual(expectedHead, target.Head);
+      Assert.AreEqual(expectedTail, target.Tail);
+      Assert.AreEqual(expectedSize, target.Size);
+    }
+
+    [Test]
     public void GetWithTooLargeCountTest()
     {
       // arrange

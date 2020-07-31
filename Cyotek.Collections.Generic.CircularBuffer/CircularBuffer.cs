@@ -299,7 +299,7 @@ namespace Cyotek.Collections.Generic
         throw new ArgumentOutOfRangeException(nameof(index), index, string.Format("Index must be between 0 and {0}.", this.Size));
       }
 
-      return _buffer[this.GetIndex(index)];
+      return _buffer[this.GetHeadIndex(index)];
     }
 
     /// <summary>
@@ -318,7 +318,7 @@ namespace Cyotek.Collections.Generic
         throw new InvalidOperationException("The buffer is empty.");
       }
 
-      index = this.GetTailIndex();
+      index = this.GetTailIndex(0);
       item = _buffer[index];
 
       if (--this.Tail < 0)
@@ -385,7 +385,7 @@ namespace Cyotek.Collections.Generic
         throw new InvalidOperationException("The buffer is empty.");
       }
 
-      index = this.GetTailIndex();
+      index = this.GetTailIndex(0);
       item = _buffer[index];
 
       return item;
@@ -467,10 +467,10 @@ namespace Cyotek.Collections.Generic
     /// <param name="count">The number of elements to increment the data buffer start index by.</param>
     public void Skip(int count)
     {
-      this.Head = this.GetIndex(count);
+      this.Head = this.GetHeadIndex(count);
     }
 
-    private int GetIndex(int index)
+    private int GetHeadIndex(int index)
     {
       int newIndex;
 
@@ -501,17 +501,17 @@ namespace Cyotek.Collections.Generic
       return result;
     }
 
-    private int GetTailIndex()
+    private int GetTailIndex(int index)
     {
       int bufferIndex;
 
       if (this.Tail == 0)
       {
-        bufferIndex = this.Size - 1;
+        bufferIndex = this.Size - (index + 1);
       }
       else
       {
-        bufferIndex = this.Tail - 1;
+        bufferIndex = this.Tail - (index + 1);
       }
 
       return bufferIndex;
@@ -682,5 +682,99 @@ namespace Cyotek.Collections.Generic
     }
 
     #endregion
+
+    /// <summary>
+    /// Removes and returns the specified number of objects from the end of the <see cref="CircularBuffer{T}"/>.
+    /// </summary>
+    /// <param name="count">The number of elements to remove and return from the <see cref="CircularBuffer{T}"/>.</param>
+    /// <returns>The objects that are removed from the end of the <see cref="CircularBuffer{T}"/>.</returns>
+    public T[] GetLast(int count)
+    {
+      T[] result;
+
+      result = new T[count];
+
+      this.GetLast(result);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Copies and removes the specified number elements from the end of the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array. 
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <returns>The actual number of elements copied into <paramref name="array"/>.</returns>
+    public int GetLast(T[] array)
+    {
+      return this.GetLast(array, 0, array.Length);
+    }
+
+    /// <summary>
+    /// Copies and removes the specified number elements from the end of the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array. 
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+    /// <param name="count">The number of elements to copy.</param>
+    /// <returns>The actual number of elements copied into <paramref name="array"/>.</returns>
+    public virtual int GetLast(T[] array, int arrayIndex, int count)
+    {
+      int realCount;
+
+      realCount = Math.Min(count, this.Size);
+
+      for (int i = realCount; i > 0; i--)
+      {
+        array[(arrayIndex + i) - 1] = this.GetLast();
+      }
+
+      return realCount;
+    }
+
+    /// <summary>
+    /// Removes and returns the specified number of objects from the end of the <see cref="CircularBuffer{T}"/>.
+    /// </summary>
+    /// <param name="count">The number of elements to remove and return from the <see cref="CircularBuffer{T}"/>.</param>
+    /// <returns>The objects that are removed from the end of the <see cref="CircularBuffer{T}"/>.</returns>
+    public T[] PeekLast(int count)
+    {
+      T[] result;
+
+      result = new T[count];
+
+      this.PeekLast(result);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Copies and removes the specified number elements from the end of the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array. 
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <returns>The actual number of elements copied into <paramref name="array"/>.</returns>
+    public int PeekLast(T[] array)
+    {
+      return this.PeekLast(array, 0, array.Length);
+    }
+
+    /// <summary>
+    /// Copies and removes the specified number elements from the end of the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array. 
+    /// </summary>
+    /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
+    /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
+    /// <param name="count">The number of elements to copy.</param>
+    /// <returns>The actual number of elements copied into <paramref name="array"/>.</returns>
+    public virtual int PeekLast(T[] array, int arrayIndex, int count)
+    {
+      int realCount;
+
+      realCount = Math.Min(count, this.Size);
+
+      for (int i = 0; i < realCount; i++)
+      {
+        array[arrayIndex + (realCount - (i + 1))] = _buffer[this.GetTailIndex(i)];
+      }
+
+      return realCount;
+    }
   }
 }
