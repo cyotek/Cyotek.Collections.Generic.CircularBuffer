@@ -18,6 +18,10 @@
 * Converted project to SDK style
 * Build process now uses `dotnet.exe`
 
+### Removed
+
+* The `Size` property is no longer writable
+
 ## 1.1.0-alpha
 
 ### Added
