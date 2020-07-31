@@ -48,7 +48,7 @@ namespace Cyotek.Collections.Generic
     /// <summary>
     /// Initializes a new instance of the <see cref="CircularBuffer{T}"/> class that is empty and has the specified initial capacity and default overwrite behavior.
     /// </summary>
-    /// <param name="capacity">The maximum capcity of the buffer.</param>
+    /// <param name="capacity">The maximum capacity of the buffer.</param>
     public CircularBuffer(int capacity)
       : this(capacity, true)
     { }
@@ -56,9 +56,9 @@ namespace Cyotek.Collections.Generic
     /// <summary>
     /// Initializes a new instance of the <see cref="CircularBuffer{T}"/> class that is empty and has the specified initial capacity and overwrite behavior.
     /// </summary>
-    /// <param name="capacity">The maximum capcity of the buffer.</param>
+    /// <param name="capacity">The maximum capacity of the buffer.</param>
     /// <param name="allowOverwrite">If set to <c>true</c> the buffer will automatically overwrite the oldest items when full.</param>
-    /// <exception cref="System.ArgumentException">Thown if the <paramref name="capacity"/> is less than zero.</exception>
+    /// <exception cref="System.ArgumentException">Thrown if the <paramref name="capacity"/> is less than zero.</exception>
     public CircularBuffer(int capacity, bool allowOverwrite)
     {
       if (capacity < 0)
@@ -422,7 +422,7 @@ namespace Cyotek.Collections.Generic
     /// <summary>
     /// Removes and returns the object at the end of the <see cref="CircularBuffer{T}"/>.
     /// </summary>
-    /// <returns>The object that is removed from the ebd of the <see cref="CircularBuffer{T}"/>.</returns>
+    /// <returns>The object that is removed from the end of the <see cref="CircularBuffer{T}"/>.</returns>
     /// <exception cref="System.InvalidOperationException">Thrown if the buffer is empty.</exception>
     /// <remarks>This method is similar to the <see cref="PeekLast"/> method, but <c>PeekLast</c> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
     public virtual T GetLast()
