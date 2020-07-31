@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -30,9 +30,7 @@ namespace Cyotek.Collections.Generic
 
     private int _capacity;
 
-#if NET40
     [NonSerialized]
-#endif
     private object _syncRoot;
 
     #endregion
