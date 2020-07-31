@@ -16,7 +16,7 @@ namespace Cyotek.Collections.Generic
   /// </summary>
   /// <typeparam name="T">Specifies the type of elements in the buffer.</typeparam>
   /// <remarks>
-  /// <para>The capacity of a <see cref="CircularBuffer{T}" /> is the number of elements the <see cref="CircularBuffer{T}"/> can 
+  /// <para>The capacity of a <see cref="CircularBuffer{T}" /> is the number of elements the <see cref="CircularBuffer{T}"/> can
   /// hold. If an attempt is made to put more items in the buffer than available capacity, items at the start of the buffer are
   /// automatically overwritten. This behavior can be modified via the <see cref="AllowOverwrite"/> property.</para>
   /// <para>CircularBuffer{T} accepts <c>null</c> as a valid value for reference types and allows duplicate elements.</para>
@@ -202,7 +202,7 @@ namespace Cyotek.Collections.Generic
     }
 
     /// <summary>
-    /// Copies and removes the specified number elements from the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array. 
+    /// Copies and removes the specified number elements from the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the beginning of the target array.
     /// </summary>
     /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
     /// <returns>The actual number of elements copied into <paramref name="array"/>.</returns>
@@ -212,7 +212,7 @@ namespace Cyotek.Collections.Generic
     }
 
     /// <summary>
-    /// Copies and removes the specified number elements from the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array. 
+    /// Copies and removes the specified number elements from the <see cref="CircularBuffer{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array.
     /// </summary>
     /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination of the elements copied from <see cref="CircularBuffer{T}"/>. The <see cref="Array"/> must have zero-based indexing.</param>
     /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
