@@ -3,8 +3,8 @@
     <Title>Cyotek CircularBuffer</Title>
     <Authors>Cyotek. Alex Regueiro</Authors>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <VersionSuffix>alpha2</VersionSuffix>
-    <Copyright>Copyright © 2012 Alex Regueiro. Copyright © 2014-2017 Cyotek Ltd. All Rights Reserved.</Copyright>
+    <VersionSuffix></VersionSuffix>
+    <Copyright>Copyright © 2012 Alex Regueiro. Copyright © 2014-2020 Cyotek Ltd. All Rights Reserved.</Copyright>
     <PackageLicenseUrl>http://static.cyotek.com/files/productlicenses/circularbuffer-license.txt</PackageLicenseUrl>
     <PackageProjectUrl>http://www.cyotek.com/blog/tag/circularbuffer</PackageProjectUrl>
     <PackageIconUrl>http://static.cyotek.com/files/packageicons/circularbuffer-32x32.png</PackageIconUrl>
