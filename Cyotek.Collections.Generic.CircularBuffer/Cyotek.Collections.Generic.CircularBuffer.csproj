@@ -6,6 +6,8 @@
 
   <PropertyGroup>
     <Company>Cyotek Ltd</Company>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>cyopublic.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
