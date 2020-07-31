@@ -28,7 +28,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act
       Assert.That(() => target.Capacity = expected, Throws.TypeOf<ArgumentOutOfRangeException>());
-     }
+    }
 
     [Test]
     public void CapacityExistingItemsTest()
@@ -266,10 +266,10 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-        public void ConstructorCapacityExceptionTest()
+    public void ConstructorCapacityExceptionTest()
     {
-     // act & assert
-     Assert.That(() => new CircularBuffer<string>(-1), Throws.TypeOf<ArgumentException>());
+      // act & assert
+      Assert.That(() => new CircularBuffer<string>(-1), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
@@ -548,7 +548,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.CopyTo(index, actual, offset, count), Throws.TypeOf<ArgumentOutOfRangeException>());
-     }
+    }
 
     [Test]
     public void CopyToTest()
@@ -690,7 +690,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.Get(), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void GetEnumeratorTest()
@@ -881,7 +881,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.GetLast(), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void GetNextTest()
@@ -1394,7 +1394,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.Peek(2), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void PeekArrayTest()
@@ -1443,7 +1443,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       // assert
       Assert.AreEqual(expected, actual);
     }
-    
+
     [Test]
     public void PeekAtWrapTest()
     {
@@ -1467,8 +1467,9 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Index must be between 0 and 3.\r\nParameter name: index\r\nActual value was -1.")]
-    public void PeekAtEmptyExceptionTest()
+    [TestCase(-1)]
+    [TestCase(3)]
+    public void PeekAtEmptyExceptionTestCases(int index)
     {
       // arrange
       CircularBuffer<string> target;
@@ -1479,27 +1480,10 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Gamma");
 
       // act
-      target.PeekAt(-1);
+      Assert.Throws<ArgumentOutOfRangeException>(() => target.PeekAt(index));
     }
 
     [Test]
-    [ExpectedException(typeof(ArgumentOutOfRangeException), ExpectedMessage = "Index must be between 0 and 3.\r\nParameter name: index\r\nActual value was 3.")]
-    public void PeekAtBelowBoundsExceptionTest()
-    {
-      // arrange
-      CircularBuffer<string> target;
-
-      target = new CircularBuffer<string>(10);
-      target.Put("Alpha");
-      target.Put("Beta");
-      target.Put("Gamma");
-
-      // act
-      target.PeekAt(3);
-    }
-
-    [Test]
-    [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "The buffer is empty.")]
     public void PeekAtAboveBoundsExceptionTest()
     {
       // arrange
@@ -1508,7 +1492,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(10);
 
       // act
-      target.PeekAt(-1);
+      Assert.Throws<InvalidOperationException>(() => target.PeekAt(-1));
     }
 
     [Test]
@@ -1521,7 +1505,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.Peek(), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void PeekLastEmptyExceptionTest()
@@ -1533,7 +1517,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.PeekLast(), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void PeekLastTest()
@@ -1615,7 +1599,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.Put(expected), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void PutArrayTest()
@@ -1648,7 +1632,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // act & assert
       Assert.That(() => target.Put("Gamma"), Throws.TypeOf<InvalidOperationException>());
-     }
+    }
 
     [Test]
     public void PutMultipleTest()
