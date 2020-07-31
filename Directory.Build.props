@@ -6,7 +6,7 @@
     <VersionPrefix>1.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Copyright>Copyright © 2012 Alex Regueiro. Copyright © 2014-2020 Cyotek Ltd. All Rights Reserved.</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     <PackageProjectUrl>http://www.cyotek.com/blog/tag/circularbuffer</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer.git</RepositoryUrl>
