@@ -1,5 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <PackageId>Cyotek.CircularBuffer</PackageId>
     <Title>Cyotek CircularBuffer</Title>
     <Authors>Cyotek. Alex Regueiro</Authors>
     <Owners>Cyotek</Owners>
