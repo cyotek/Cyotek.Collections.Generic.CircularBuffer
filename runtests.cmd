@@ -23,7 +23,7 @@ SET SLNNAME=Cyotek.Collections.Generic.CircularBuffer.sln
 %MSBUILDEXE% %SLNNAME% %cbbuild%
 IF %ERRORLEVEL% NEQ 0 GOTO :testsfailed
 
-%nunitexe% %SRCDIR%bin\release\%DLLNAME%.dll /xml=testresults\%DLLNAME%.xml %nunitargs%
+%nunitexe% %SRCDIR%bin\release\%DLLNAME%.dll -result=testresults\%DLLNAME%.xml %nunitargs%
 IF %ERRORLEVEL% NEQ 0 GOTO :testsfailed
 
 ENDLOCAL
