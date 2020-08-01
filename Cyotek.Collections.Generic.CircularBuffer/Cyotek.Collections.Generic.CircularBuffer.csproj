@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <Company>Cyotek Ltd</Company>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>cyopublic.snk</AssemblyOriginatorKeyFile>
