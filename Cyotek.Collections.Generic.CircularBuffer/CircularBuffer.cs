@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -210,7 +210,7 @@ namespace Cyotek.Collections.Generic
     /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
     public void CopyTo(T[] array, int arrayIndex)
     {
-      this.CopyTo(this.Head, array, arrayIndex, Math.Min(this.Size, array.Length - arrayIndex));
+      this.CopyTo(0, array, arrayIndex, Math.Min(this.Size, array.Length - arrayIndex));
     }
 
     /// <summary>
@@ -229,7 +229,8 @@ namespace Cyotek.Collections.Generic
         throw new ArgumentOutOfRangeException(nameof(count), count, "The read count cannot be greater than the buffer size.");
       }
 
-      bufferIndex = index;
+      bufferIndex = this.Head + index;
+
       for (int i = 0; i < count; i++, bufferIndex++, arrayIndex++)
       {
         if (bufferIndex == this.Capacity)

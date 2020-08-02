@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Cyotek.CircularBuffer</id>
@@ -17,7 +17,7 @@
       The CircularBuffer&lt;T&gt; class is a data structure that uses a single, fixed-size buffer that behaves as if it were connected end-to-end.
     </summary>
     <releaseNotes />
-    <copyright>Copyright 2014-2015 Cyotek Ltd.</copyright>
+    <copyright>$copyright$</copyright>
     <language>en-GB</language>
     <tags>circular buffer cyotek</tags>
   </metadata>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FluentAssertions;
@@ -1819,5 +1819,42 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     #endregion
+
+    [Test]
+    public void CopyToRangeWrappedTest()
+    {
+      // arrange
+      CircularBuffer<int> target;
+      int[] expected;
+      int[] actual;
+
+      target = new CircularBuffer<int>(10);
+      for (int i = 0; i < 16; i++)
+      {
+        target.Put(i);
+      }
+
+      expected = new[]
+      {
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      };
+
+      actual = new int[10];
+
+      // act
+      target.CopyTo(0, actual, 0, target.Size);
+
+      // assert
+      CollectionAssert.AreEqual(expected, actual);
+    }
   }
 }
