@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.0-alpha3
+
+### Fixed
+
+* The `CopyTo` overload that specified a range used direct
+  indexes into the source buffer instead of offsetting from
+  `Head`
+
 ## 1.1.0-alpha2
 
 ### Added
