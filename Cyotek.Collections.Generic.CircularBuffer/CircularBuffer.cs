@@ -295,7 +295,7 @@ namespace Cyotek.Collections.Generic
         throw new ArgumentOutOfRangeException(nameof(count), count, "The read count cannot be greater than the buffer size.");
       }
 
-      bufferIndex = index;
+      bufferIndex = _head + index;
 
       for (int i = 0; i < count; i++, bufferIndex++, arrayIndex++)
       {
@@ -314,7 +314,7 @@ namespace Cyotek.Collections.Generic
     /// <param name="arrayIndex">The zero-based index in <paramref name="array"/> at which copying begins.</param>
     public void CopyTo(T[] array, int arrayIndex)
     {
-      this.CopyTo(_head, array, arrayIndex, Math.Min(_size, array.Length - arrayIndex));
+      this.CopyTo(0, array, arrayIndex, Math.Min(_size, array.Length - arrayIndex));
     }
 
     /// <summary>
