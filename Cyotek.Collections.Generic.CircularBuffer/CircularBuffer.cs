@@ -299,9 +299,9 @@ namespace Cyotek.Collections.Generic
 
       for (int i = 0; i < count; i++, bufferIndex++, arrayIndex++)
       {
-        if (bufferIndex == _capacity)
+        if (bufferIndex >= _capacity)
         {
-          bufferIndex = 0;
+          bufferIndex -= _capacity;
         }
         array[arrayIndex] = _buffer[bufferIndex];
       }

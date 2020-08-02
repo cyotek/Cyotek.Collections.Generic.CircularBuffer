@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using NUnit.Framework;
 
 namespace Cyotek.Collections.Generic.CircularBuffer.Tests
@@ -1973,7 +1971,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
         target.Put(i);
       }
 
-      expected = new []
+      expected = new[]
       {
         6,
         7,
@@ -1996,6 +1994,41 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       CollectionAssert.AreEqual(expected, actual);
     }
 
+    [Test]
+    public void CopyToRangeOffsetTest()
+    {
+      // arrange
+      CircularBuffer<int> target;
+      int[] expected;
+      int[] actual;
 
+      target = new CircularBuffer<int>(10);
+      for (int i = 0; i < 16; i++)
+      {
+        target.Put(i);
+      }
+
+      expected = new[]
+      {
+        12,
+        13,
+        14,
+        15,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+      };
+
+      actual = new int[10];
+
+      // act
+      target.CopyTo(6, actual, 0, target.Size);
+
+      // assert
+      CollectionAssert.AreEqual(expected, actual);
+    }
   }
 }

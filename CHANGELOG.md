@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.0-alpha4
+
+### Fixed
+
+* The `CopyTo` overload that specified a range crashed if an
+  starting offset was used that pushed it beyond the capacity of
+  the buffer
+
 ## 1.1.0-alpha3
 
 ### Fixed
