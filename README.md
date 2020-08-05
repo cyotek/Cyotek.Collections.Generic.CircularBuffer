@@ -1,6 +1,8 @@
 # CircularBuffer&lt;T> Class
 
 [![Build status][1]][2]
+[![NuGet][5]][3]
+[![Donate][6]][7]
 
 The `CircularBuffer<T>` class is a data structure that uses a
 single, fixed-size buffer that behaves as if it were connected
@@ -40,11 +42,11 @@ resizing of buffers or reallocation.
 > reallocates the internal buffer rather than looping all the
 > items and setting them to `default(T)`.
 
-In addition, the `PeekLast(count)`, `GetLast(count)`,
-`Get(count)` and `ToArray` methods will all create and return a
-new array. With the exception of `ToArray`, the other methods
-have overloads that allow you to specify an existing array to be
-populated.
+The `PeekLast(count)`, `GetLast(count)`, `Get(count)` and
+`ToArray` methods will all create and return a new array. With
+the exception of `ToArray` (as there is already `CopyTo`), the
+other methods have overloads that allow you to specify an
+existing array to be populated.
 
 ## Using the class
 
@@ -64,6 +66,8 @@ However, you can also use it as FILO stack by using the
 To retrieve the next item without removing it from the buffer,
 you can use the `Peek` method. Or, to retrieve (again without
 removing) the last item in the buffer, you can use `PeekLast`.
+To round off peeking, there is also a `PeekAt` method which can
+retrieve an item from anywhere in the buffer.
 
 Calling `Get`, `GetLast`, `Peek` or `PeekLast` on an empty
 buffer will thrown an exception. You can use `IsEmpty` to check
@@ -105,7 +109,7 @@ the internal state of the buffer changes with each call.
   string firstItem;
   string[] items;
 
-  target = new CircularBuffer<string>(10); // Creates a buffer with 10 items
+  target = new CircularBuffer<string>(10); // Creates a buffer for storing up to 10 items
   target.Put("Alpha");                     // Head is 0, Tail is 1, Size is 1
   target.Put("Beta");                      // Head is 0, Tail is 2, Size is 2
   target.Put("Gamma");                     // Head is 0, Tail is 3, Size is 3
@@ -123,7 +127,7 @@ overwrite the oldest items when full.
   string firstItem;
   string[] items;
 
-  target = new CircularBuffer<string>(3);  // Creates a buffer with 3 items
+  target = new CircularBuffer<string>(3);  // Creates a buffer for storing up to 3 items
   target.Put("Alpha");                     // Head is 0, Tail is 1, Size is 1
   target.Put("Beta");                      // Head is 0, Tail is 2, Size is 2
   target.Put("Gamma");                     // Head is 0, Tail is 3, Size is 3
@@ -141,7 +145,7 @@ peeking.
   string firstItem;
   string lastItem;
 
-  target = new CircularBuffer<string>(10); // Creates a buffer with 10 items
+  target = new CircularBuffer<string>(10); // Creates a buffer for storing up to 10 items
   target.Put("Alpha");                     // Head is 0, Tail is 1, Size is 1
   target.Put("Beta");                      // Head is 0, Tail is 2, Size is 2
   target.Put("Gamma");                     // Head is 0, Tail is 3, Size is 3
@@ -158,7 +162,7 @@ this has tests which cover all the code paths. Except for
 ## Requirements
 
 .NET Framework 2.0 or later. Pre-built binaries are available
-for 4.52 and above via a NuGet package.
+for 4.0 and above via a [NuGet package][3].
 
 ## Acknowledgements
 
@@ -190,3 +194,6 @@ original source this implementation is based upon. See
 [2]: https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer
 [3]: https://www.nuget.org/packages/Cyotek.CircularBuffer/
 [4]: http://circularbuffer.codeplex.com/
+[5]: https://img.shields.io/nuget/v/Cyotek.CircularBuffer.svg
+[6]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
+[7]: https://paypal.me/cyotek
