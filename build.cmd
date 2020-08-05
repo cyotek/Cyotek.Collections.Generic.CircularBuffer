@@ -22,5 +22,7 @@ CALL signcmd %RELDIR%netcoreapp3.1\Cyotek.Collections.Generic.CircularBuffer.dll
 CALL signcmd %RELDIR%netstandard2.0\Cyotek.Collections.Generic.CircularBuffer.dll
 CALL signcmd %RELDIR%netstandard2.1\Cyotek.Collections.Generic.CircularBuffer.dll
 dotnet pack %PRJFILE% --configuration Release --no-build
+CALL sign-package %RELDIR%*.nupkg
+CALL sign-package %RELDIR%*.snupkg
 
 ENDLOCAL

@@ -16,6 +16,8 @@ or reference the assembly. A NuGet package is [also
 available][3]. The class has no external dependencies aside from
 a reference to `System.dll`.
 
+View the [change log][8] for updates to this library.
+
 ## Overwrite support
 
 By default, the contents of the buffer automatically wrap, so
@@ -197,3 +199,4 @@ original source this implementation is based upon. See
 [5]: https://img.shields.io/nuget/v/Cyotek.CircularBuffer.svg
 [6]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [7]: https://paypal.me/cyotek
+[8]: CHANGELOG.md

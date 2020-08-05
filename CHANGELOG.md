@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0-alpha5
+
+### Added
+
+* NuGet package is now signed
+
 ## 1.1.0-alpha4
 
 ### Fixed
