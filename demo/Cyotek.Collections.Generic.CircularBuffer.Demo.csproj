@@ -55,7 +55,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cyotek.Collections.Generic.CircularBuffer\Cyotek.Collections.Generic.CircularBuffer.csproj">
+    <ProjectReference Include="..\src\Cyotek.Collections.Generic.CircularBuffer.csproj">
       <Project>{2ed127e6-9b7a-4828-ae46-f3553f61f209}</Project>
       <Name>Cyotek.Collections.Generic.CircularBuffer</Name>
     </ProjectReference>

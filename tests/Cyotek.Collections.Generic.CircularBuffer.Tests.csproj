@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cyotek.Collections.Generic.CircularBuffer\Cyotek.Collections.Generic.CircularBuffer.csproj" />
+    <ProjectReference Include="..\src\Cyotek.Collections.Generic.CircularBuffer.csproj" />
   </ItemGroup>
 
 </Project>

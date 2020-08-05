@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cyotek.Collections.Generic.CircularBuffer.Demo", "demo\Cyotek.Collections.Generic.CircularBuffer.Demo.csproj", "{ED28514C-3458-4E2A-94E4-5949356F27BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cyotek.Collections.Generic.CircularBuffer", "Cyotek.Collections.Generic.CircularBuffer\Cyotek.Collections.Generic.CircularBuffer.csproj", "{2ED127E6-9B7A-4828-AE46-F3553F61F209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cyotek.Collections.Generic.CircularBuffer", "src\Cyotek.Collections.Generic.CircularBuffer.csproj", "{2ED127E6-9B7A-4828-AE46-F3553F61F209}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cyotek.Collections.Generic.CircularBuffer.Tests", "Cyotek.Collections.Generic.CircularBuffer.Tests\Cyotek.Collections.Generic.CircularBuffer.Tests.csproj", "{EA14697D-3EFE-4999-86F6-4F886CBAFF1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cyotek.Collections.Generic.CircularBuffer.Tests", "tests\Cyotek.Collections.Generic.CircularBuffer.Tests.csproj", "{EA14697D-3EFE-4999-86F6-4F886CBAFF1F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A644FACA-1DA6-4861-9304-3D1A41329D80}"
 	ProjectSection(SolutionItems) = preProject
