@@ -59,7 +59,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Demo
 
       g = e.Graphics;
 
-      g.Clear(Color.White);
+      g.Clear(Color.FromArgb(255, 255, 220));
 
       g.SmoothingMode = SmoothingMode.AntiAlias;
 

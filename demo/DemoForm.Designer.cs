@@ -49,6 +49,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Demo
       this.wrapCheckBox.BackColor = System.Drawing.Color.Transparent;
       this.wrapCheckBox.Checked = true;
       this.wrapCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.wrapCheckBox.ForeColor = System.Drawing.Color.FromArgb(8, 8, 8);
       this.wrapCheckBox.Location = new System.Drawing.Point(720, 532);
       this.wrapCheckBox.Name = "wrapCheckBox";
       this.wrapCheckBox.Size = new System.Drawing.Size(52, 17);
@@ -61,6 +62,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Demo
       this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.BackColor = System.Drawing.Color.Transparent;
+      this.label1.ForeColor = System.Drawing.Color.FromArgb(8, 8, 8);
       this.label1.Location = new System.Drawing.Point(12, 522);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(674, 30);
