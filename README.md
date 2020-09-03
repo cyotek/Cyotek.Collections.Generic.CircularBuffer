@@ -163,8 +163,25 @@ this has tests which cover all the code paths. Except for
 
 ## Requirements
 
-.NET Framework 2.0 or later. Pre-built binaries are available
-for 4.0 and above via a [NuGet package][3].
+.NET Framework 2.0 or later.
+
+Pre-built binaries are available via a signed [NuGet package][3]
+containing the following targets.
+
+* .NET 3.5
+* .NET 4.0
+* .NET 4.5.2
+* .NET 4.6.2
+* .NET 4.7.2
+* .NET 4.8
+* .NET Standard 2.0
+* .NET Standard 2.1
+* .NET Core 2.1
+* .NET Core 2.2
+* .NET Core 3.1
+
+Is there a target not on this list you'd like to see? Raise an
+[issue][9], or even better, a [pull request][10].
 
 ## Acknowledgements
 
@@ -200,3 +217,5 @@ original source this implementation is based upon. See
 [6]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
 [7]: https://paypal.me/cyotek
 [8]: CHANGELOG.md
+[9]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/issues
+[10]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/pulls
