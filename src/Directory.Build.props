@@ -5,7 +5,7 @@
     <Authors>Cyotek. Alex Regueiro</Authors>
     <Owners>Cyotek</Owners>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <VersionSuffix>alpha5</VersionSuffix>
+    <VersionSuffix>alpha6</VersionSuffix>
     <Copyright>Copyright © 2012 Alex Regueiro. Copyright © 2014-2020 Cyotek Ltd. All Rights Reserved.</Copyright>
     <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
     <PackageProjectUrl>http://www.cyotek.com/blog/tag/circularbuffer</PackageProjectUrl>

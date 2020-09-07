@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0-alpha6
+
+### Added
+
+* Reinstated .NET 3.5 support
+
 ## 1.1.0-alpha5
 
 ### Added
