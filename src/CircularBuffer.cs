@@ -20,7 +20,7 @@ namespace Cyotek.Collections.Generic
   /// hold. If an attempt is made to put more items in the buffer than available capacity, items at the start of the buffer are
   /// automatically overwritten. This behavior can be modified via the <see cref="AllowOverwrite"/> property.</para>
   /// <para>CircularBuffer{T} accepts <c>null</c> as a valid value for reference types and allows duplicate elements.</para>
-  /// <para>The <see cref="Get()"/> methods will remove the items that are returned from the CircularBuffer{T}. To view the contents of the CircularBuffer{T} without removing items, use the <see cref="Peek()"/> or <see cref="PeekLast"/> methods.</para>
+  /// <para>The <see cref="Get()"/> methods will remove the items that are returned from the CircularBuffer{T}. To view the contents of the CircularBuffer{T} without removing items, use the <see cref="Peek()"/> or <see cref="PeekLast()"/> methods.</para>
   /// </remarks>
   public class CircularBuffer<T> : ICollection<T>, ICollection
   {
@@ -424,7 +424,7 @@ namespace Cyotek.Collections.Generic
     /// </summary>
     /// <returns>The object that is removed from the end of the <see cref="CircularBuffer{T}"/>.</returns>
     /// <exception cref="System.InvalidOperationException">Thrown if the buffer is empty.</exception>
-    /// <remarks>This method is similar to the <see cref="PeekLast"/> method, but <c>PeekLast</c> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
+    /// <remarks>This method is similar to the <see cref="PeekLast()"/> method, but <c>PeekLast</c> does not modify the <see cref="CircularBuffer{T}"/>.</remarks>
     public virtual T GetLast()
     {
       T item;
@@ -534,6 +534,11 @@ namespace Cyotek.Collections.Generic
       return items;
     }
 
+    /// <summary> Returns the object at the specified location in the <see cref="CircularBuffer{T}"/> without removing it. </summary>
+    /// <exception cref="InvalidOperationException"> Thrown if the buffer is empty. </exception>
+    /// <exception cref="ArgumentOutOfRangeException"> Thrown when one or more arguments are outside
+    ///  the required range. </exception>
+    /// <param name="index"> The zero-based index in the source <see cref="CircularBuffer{T}"/> of the item to retrieve. </param>
     public T PeekAt(int index)
     {
       if (this.IsEmpty)
