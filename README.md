@@ -1,8 +1,10 @@
-# CircularBuffer&lt;T> Class
+# ![Icon][iconimg] CircularBuffer&lt;T> Class
 
-[![Build status][1]][2]
-[![NuGet][5]][3]
-[![Donate][6]][7]
+[![Build status][ci]][ciimg]
+[![NuGet][nugetimg]][nuget]
+[![Donate][donateimg]][donate]
+
+![Demo][demoimg]
 
 The `CircularBuffer<T>` class is a data structure that uses a
 single, fixed-size buffer that behaves as if it were connected
@@ -13,7 +15,7 @@ both a first-in, first-out queue, or a first-in, last-out stack.
 
 You can drop the class directly into your projects to use as-is,
 or reference the assembly. A NuGet package is [also
-available][3]. The class has no external dependencies aside from
+available][nuget]. The class has no external dependencies aside from
 a reference to `System.dll`.
 
 View the [change log][8] for updates to this library.
@@ -165,7 +167,7 @@ this has tests which cover all the code paths. Except for
 
 .NET Framework 2.0 or later.
 
-Pre-built binaries are available via a signed [NuGet package][3]
+Pre-built binaries are available via a signed [NuGet package][nuget]
 containing the following targets.
 
 * .NET 3.5
@@ -181,7 +183,7 @@ containing the following targets.
 * .NET Core 3.1
 
 Is there a target not on this list you'd like to see? Raise an
-[issue][9], or even better, a [pull request][10].
+[issue][gitissue], or even better, a [pull request][gitpull].
 
 ## Acknowledgements
 
@@ -209,13 +211,15 @@ The code is licensed under the New BSD License (BSD) as per the
 original source this implementation is based upon. See
 `LICENSE.txt` for details.
 
-[1]: https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7?svg=true
-[2]: https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer
-[3]: https://www.nuget.org/packages/Cyotek.CircularBuffer/
+[ci]: https://ci.appveyor.com/api/projects/status/h7pwdahqmxajsyj7?svg=true
+[ciimg]: https://ci.appveyor.com/project/cyotek/cyotek-collections-generic-circularbuffer
+[nuget]: https://www.nuget.org/packages/Cyotek.CircularBuffer/
+[nugetimg]: https://img.shields.io/nuget/v/Cyotek.CircularBuffer.svg
+[donateimg]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
+[donate]: https://paypal.me/cyotek
+[gitissue]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/issues
+[gitpull]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/pulls
+[demoimg]: res/demo.gif
+[iconimg]: res/circularbuffer-32x32.png
 [4]: http://circularbuffer.codeplex.com/
-[5]: https://img.shields.io/nuget/v/Cyotek.CircularBuffer.svg
-[6]: https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif
-[7]: https://paypal.me/cyotek
 [8]: CHANGELOG.md
-[9]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/issues
-[10]: https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/pulls
