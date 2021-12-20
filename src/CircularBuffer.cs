@@ -368,6 +368,11 @@ namespace Cyotek.Collections.Generic
         array[dstIndex] = _buffer[_head];
       }
 
+      if (_head == _capacity)
+      {
+        _head = 0;
+      }
+
       _size -= realCount;
 
       return realCount;
