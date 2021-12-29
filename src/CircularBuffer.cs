@@ -114,6 +114,8 @@ namespace Cyotek.Collections.Generic
           }
 
           _buffer = newBuffer;
+          _tail = _size;
+          _head = 0;
 
           _capacity = value;
         }
