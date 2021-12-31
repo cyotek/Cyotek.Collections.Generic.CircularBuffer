@@ -1,11 +1,18 @@
 # Change Log
 
+## 1.2.1
+
+### Fixed
+
+* Changing the `Capacity` property with a populated buffer lead
+  to data corruption (#18)
+
 ## 1.2.0
 
 ### Fixed
 
 * Calling `Get` overloads that returned array didn't always wrap
-  `Head` properly
+  `Head` properly (#17)
 
 ## 1.1.0-alpha6
 
