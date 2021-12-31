@@ -1806,6 +1806,32 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
+    public void WrappedBufferResizeTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string[] expected;
+      string[] actual;
+
+      target = new CircularBuffer<string>(4, true);
+      target.Put("1");
+      target.Put("2");
+      target.Put("3");
+      target.Put("4");
+      target.Put("5"); //ensuring buffer is wrapped
+      target.Put("6");
+
+      expected = new[] {"3", "4", "5", "6"};
+
+      // act
+      target.Capacity = 6;
+      actual = target.ToArray();
+
+      // assert
+      Assert.AreEqual(expected, actual);
+    }
+
+    [Test]
     public void SkipOverCapacityTest()
     {
       // arrange

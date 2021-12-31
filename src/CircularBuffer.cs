@@ -66,11 +66,8 @@ namespace Cyotek.Collections.Generic
         throw new ArgumentException("The buffer capacity must be greater than or equal to zero.", nameof(capacity));
       }
 
-      _buffer = new T[capacity];
-      this.Capacity = capacity;
       _size = 0;
-      _head = 0;
-      _tail = 0;
+      this.Capacity = capacity;
       _allowOverwrite = allowOverwrite;
     }
 
@@ -114,6 +111,8 @@ namespace Cyotek.Collections.Generic
           }
 
           _buffer = newBuffer;
+          _tail = _size;
+          _head = 0;
 
           _capacity = value;
         }
