@@ -2030,5 +2030,29 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       // assert
       CollectionAssert.AreEqual(expected, actual);
     }
+
+    [Test]
+    public void GetArrayWrapTest()
+    {
+      // arrange
+      CircularBuffer<byte> target;
+      int expected;
+
+      // derived from https://github.com/cyotek/Cyotek.Collections.Generic.CircularBuffer/issues/17#issue-1084534453
+
+      target = new CircularBuffer<byte>(10, false);
+      target.Put(new byte[target.Capacity]);
+
+      expected = 0;
+
+      // act
+      while (!target.IsEmpty)
+      {
+        target.Get(1);
+      }
+
+      // assert
+      Assert.AreEqual(expected, target.Head);
+    }
   }
 }

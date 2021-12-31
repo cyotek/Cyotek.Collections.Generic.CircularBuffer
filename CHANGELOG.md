@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.2.0
+
+### Fixed
+
+* Calling `Get` overloads that returned array didn't always wrap
+  `Head` properly
+
 ## 1.1.0-alpha6
 
 ### Added
