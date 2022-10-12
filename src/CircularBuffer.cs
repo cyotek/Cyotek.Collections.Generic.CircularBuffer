@@ -792,13 +792,13 @@ namespace Cyotek.Collections.Generic
     {
       int bufferIndex;
 
-      if (_tail == 0)
+      bufferIndex = _tail == 0
+        ? _size - (index + 1)
+        : _tail - (index + 1);
+
+      if (bufferIndex < 0)
       {
-        bufferIndex = _size - (index + 1);
-      }
-      else
-      {
-        bufferIndex = _tail - (index + 1);
+        bufferIndex += _capacity;
       }
 
       return bufferIndex;

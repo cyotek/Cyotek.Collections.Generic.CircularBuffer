@@ -1385,6 +1385,19 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
+    public void Issue20Test()
+    {
+      var buffer = new CircularBuffer<string>(5);
+      buffer.Put(new[] { "a", "b", "c", "d", "e" });
+      CollectionAssert.AreEqual(new[] { "d", "e" }, buffer.PeekLast(2));
+      CollectionAssert.AreEqual(new[] { "a", "b" }, buffer.Peek(2));
+      //overwrite
+      buffer.Put(new[] { "f", "g" });
+      CollectionAssert.AreEqual(new[] { "e", "f", "g" }, buffer.PeekLast(3));
+      CollectionAssert.AreEqual(new[] { "c", "d", "e" }, buffer.Peek(3));
+    }
+
+    [Test]
     public void PeekArrayEmptyExceptionTest()
     {
       // arrange
@@ -1518,6 +1531,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       // act & assert
       Assert.That(() => target.PeekLast(), Throws.TypeOf<InvalidOperationException>());
     }
+
 
     [Test]
     public void PeekLastTest()

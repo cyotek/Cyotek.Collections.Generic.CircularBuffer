@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.2
+
+### Fixed
+
+* After overwriting items, `PeekLast` could crash (#20)
+
 ## 1.2.1
 
 ### Fixed
