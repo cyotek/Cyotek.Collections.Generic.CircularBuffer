@@ -170,17 +170,9 @@ this has tests which cover all the code paths. Except for
 Pre-built binaries are available via a signed [NuGet package][nuget]
 containing the following targets.
 
-* .NET 3.5
-* .NET 4.0
-* .NET 4.5.2
 * .NET 4.6.2
-* .NET 4.7.2
-* .NET 4.8
 * .NET Standard 2.0
-* .NET Standard 2.1
-* .NET Core 2.1
-* .NET Core 2.2
-* .NET Core 3.1
+* .NET 8.0
 
 Is there a target not on this list you'd like to see? Raise an
 [issue][gitissue], or even better, a [pull request][gitpull].

@@ -55,9 +55,12 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expectedCapacity;
 
       // assert
-      Assert.AreEqual(expectedCapacity, target.Capacity);
-      Assert.AreEqual(expectedSize, target.Size);
-      CollectionAssert.AreEqual(expectedItems, target.ToArray());
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Capacity, Is.EqualTo(expectedCapacity));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+        Assert.That(target.ToArray(), Is.EqualTo(expectedItems));
+      }
     }
 
     [Test]
@@ -75,7 +78,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expected;
 
       // assert
-      Assert.AreEqual(expected, target.Capacity);
+      Assert.That(target.Capacity, Is.EqualTo(expected));
     }
 
     [Test]
@@ -93,7 +96,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Capacity = expected;
 
       // assert
-      Assert.AreEqual(expected, target.Capacity);
+      Assert.That(target.Capacity, Is.EqualTo(expected));
     }
 
     [Test]
@@ -118,9 +121,12 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Clear();
 
       // assert
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -144,10 +150,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       ((ICollection<string>)target).Add(expected);
 
       // assert
-      Assert.IsTrue(target.Contains(expected));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Contains(expected), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -188,11 +197,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       ((ICollection)target).CopyTo(actual, offset);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -214,7 +226,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection)target).Count;
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -230,7 +242,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection<string>)target).IsReadOnly;
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -246,7 +258,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection)target).IsSynchronized;
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -285,8 +297,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity);
 
       // assert
-      Assert.AreEqual(expectedCapacity, target.Capacity);
-      Assert.IsTrue(target.AllowOverwrite);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Capacity, Is.EqualTo(expectedCapacity));
+        Assert.That(target.AllowOverwrite, Is.True);
+      }
     }
 
     [Test]
@@ -302,8 +317,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity, false);
 
       // assert
-      Assert.AreEqual(expectedCapacity, target.Capacity);
-      Assert.IsFalse(target.AllowOverwrite);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Capacity, Is.EqualTo(expectedCapacity));
+        Assert.That(target.AllowOverwrite, Is.False);
+      }
     }
 
     [Test]
@@ -319,8 +337,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target = new CircularBuffer<string>(expectedCapacity, true);
 
       // assert
-      Assert.AreEqual(expectedCapacity, target.Capacity);
-      Assert.IsTrue(target.AllowOverwrite);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Capacity, Is.EqualTo(expectedCapacity));
+        Assert.That(target.AllowOverwrite, Is.True);
+      }
     }
 
     [Test]
@@ -341,7 +362,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Alpha");
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -360,7 +381,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Delta");
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -379,7 +400,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Contains("Alpha");
 
       // assert
-      Assert.IsTrue(actual);
+      Assert.That(actual, Is.True);
     }
 
     [Test]
@@ -424,11 +445,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(index, actual, offset, count);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -469,11 +493,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(actual, offset);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -518,11 +545,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(index, actual, offset, count);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -579,11 +609,14 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(actual);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -605,8 +638,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Get(actual);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.AreEqual(0, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Size, Is.EqualTo(0));
+      }
     }
 
     [Test]
@@ -639,17 +675,19 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Get();
 
       // act
-      // ReSharper disable once LoopCanBeConvertedToQuery
       foreach (string value in target)
       {
         actual.Add(value);
       }
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -671,7 +709,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = ((ICollection<string>)target).Count;
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -723,7 +761,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       }
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -746,7 +784,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.GetLast();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -770,7 +808,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // assert
       actual = target.Size;
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -794,7 +832,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // assert
       actual = target.Tail;
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -815,10 +853,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.GetLast();
 
       // assert
-      actual1 = target.Contains("Alpha");
-      actual2 = target.Contains("Beta");
-      Assert.IsTrue(actual1);
-      Assert.IsTrue(actual2);
+      using (Assert.EnterMultipleScope())
+      {
+        actual1 = target.Contains("Alpha");
+        actual2 = target.Contains("Beta");
+        Assert.That(actual1, Is.True);
+        Assert.That(actual2, Is.True);
+      }
     }
 
     [Test]
@@ -839,7 +880,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       // assert
       actual = target.Contains("Gamma");
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -862,7 +903,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.GetLast();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -903,7 +944,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -931,8 +972,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      Assert.AreEqual(expected, actual);
-      Assert.AreEqual(expectedHead, target.Head);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+      }
     }
 
     [Test]
@@ -961,13 +1005,16 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      Assert.AreEqual(expected, actual);
-      Assert.IsFalse(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.False);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1010,15 +1057,18 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual, offset, expectedElements);
 
       // assert
-      Assert.AreEqual(expectedElements, actualElements);
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsFalse(target.Contains("Alpha"));
-      Assert.IsFalse(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.IsTrue(target.Contains("Delta"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actualElements, Is.EqualTo(expectedElements));
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.False);
+        Assert.That(target.Contains("Beta"), Is.False);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Contains("Delta"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1056,14 +1106,17 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual);
 
       // assert
-      Assert.AreEqual(expectedElements, actualElements);
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsFalse(target.Contains("Alpha"));
-      Assert.IsFalse(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actualElements, Is.EqualTo(expectedElements));
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.False);
+        Assert.That(target.Contains("Beta"), Is.False);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1099,8 +1152,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual);
 
       // assert
-      Assert.AreEqual(expectedElements, actualElements);
-      CollectionAssert.AreEqual(expected, actual);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actualElements, Is.EqualTo(expectedElements));
+        Assert.That(actual, Is.EqualTo(expected));
+      }
     }
 
     [Test]
@@ -1133,13 +1189,16 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get(2);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsFalse(target.Contains("Alpha"));
-      Assert.IsFalse(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.False);
+        Assert.That(target.Contains("Beta"), Is.False);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1172,14 +1231,16 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.GetLast(2);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsFalse(target.Contains("Beta"));
-      Assert.IsFalse(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
-
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.False);
+        Assert.That(target.Contains("Gamma"), Is.False);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1212,13 +1273,16 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekLast(2);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
-      Assert.IsTrue(target.Contains("Alpha"));
-      Assert.IsTrue(target.Contains("Beta"));
-      Assert.IsTrue(target.Contains("Gamma"));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actual, Is.EqualTo(expected));
+        Assert.That(target.Contains("Alpha"), Is.True);
+        Assert.That(target.Contains("Beta"), Is.True);
+        Assert.That(target.Contains("Gamma"), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1262,8 +1326,11 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actualElements = target.Get(actual, offset, count);
 
       // assert
-      Assert.AreEqual(expectedElements, actualElements);
-      CollectionAssert.AreEqual(expected, actual);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(actualElements, Is.EqualTo(expectedElements));
+        Assert.That(actual, Is.EqualTo(expected));
+      }
     }
 
     [Test]
@@ -1289,7 +1356,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Get();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1305,7 +1372,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsEmpty;
 
       // assert
-      Assert.IsTrue(actual);
+      Assert.That(actual, Is.True);
     }
 
     [Test]
@@ -1323,7 +1390,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsEmpty;
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -1341,7 +1408,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -1361,7 +1428,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      Assert.IsTrue(actual);
+      Assert.That(actual, Is.True);
     }
 
     [Test]
@@ -1381,7 +1448,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.IsFull;
 
       // assert
-      Assert.IsFalse(actual);
+      Assert.That(actual, Is.False);
     }
 
     [Test]
@@ -1389,12 +1456,17 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     {
       var buffer = new CircularBuffer<string>(5);
       buffer.Put(new[] { "a", "b", "c", "d", "e" });
-      CollectionAssert.AreEqual(new[] { "d", "e" }, buffer.PeekLast(2));
-      CollectionAssert.AreEqual(new[] { "a", "b" }, buffer.Peek(2));
-      //overwrite
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(buffer.PeekLast(2), Is.EqualTo(new[] { "d", "e" }));
+        Assert.That(buffer.Peek(2), Is.EqualTo(new[] { "a", "b" }));
+      }
       buffer.Put(new[] { "f", "g" });
-      CollectionAssert.AreEqual(new[] { "e", "f", "g" }, buffer.PeekLast(3));
-      CollectionAssert.AreEqual(new[] { "c", "d", "e" }, buffer.Peek(3));
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(buffer.PeekLast(3), Is.EqualTo(new[] { "e", "f", "g" }));
+        Assert.That(buffer.Peek(3), Is.EqualTo(new[] { "c", "d", "e" }));
+      }
     }
 
     [Test]
@@ -1432,7 +1504,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Peek(2);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1454,7 +1526,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekAt(index);
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1476,7 +1548,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekAt(1);
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1492,8 +1564,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Beta");
       target.Put("Gamma");
 
-      // act
-      Assert.Throws<ArgumentOutOfRangeException>(() => target.PeekAt(index));
+      // act & assert
+      Assert.That(() => target.PeekAt(index), Throws.TypeOf<ArgumentOutOfRangeException>());
     }
 
     [Test]
@@ -1504,8 +1576,8 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       target = new CircularBuffer<string>(10);
 
-      // act
-      Assert.Throws<InvalidOperationException>(() => target.PeekAt(-1));
+      // act & assert
+      Assert.That(() => target.PeekAt(-1), Throws.TypeOf<InvalidOperationException>());
     }
 
     [Test]
@@ -1552,7 +1624,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekLast();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1574,7 +1646,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.PeekLast();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1596,7 +1668,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Peek();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1630,7 +1702,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected);
 
       // assert
-      CollectionAssert.AreEqual(expected, target.ToArray());
+      Assert.That(target.ToArray(), Is.EqualTo(expected));
     }
 
     [Test]
@@ -1675,12 +1747,15 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected3);
 
       // assert
-      Assert.IsTrue(target.Contains(expected1));
-      Assert.IsTrue(target.Contains(expected2));
-      Assert.IsTrue(target.Contains(expected3));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Contains(expected1), Is.True);
+        Assert.That(target.Contains(expected2), Is.True);
+        Assert.That(target.Contains(expected3), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1704,10 +1779,13 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected);
 
       // assert
-      Assert.IsTrue(target.Contains(expected));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Contains(expected), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1732,7 +1810,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       actual = target.ToArray();
 
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1755,7 +1833,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       actual = target.ToArray();
 
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1788,13 +1866,16 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put(expected4);
 
       // assert
-      Assert.IsFalse(target.Contains(expected1));
-      Assert.IsTrue(target.Contains(expected2));
-      Assert.IsTrue(target.Contains(expected3));
-      Assert.IsTrue(target.Contains(expected4));
-      Assert.AreEqual(expectedHead, target.Head);
-      Assert.AreEqual(expectedTail, target.Tail);
-      Assert.AreEqual(expectedSize, target.Size);
+      using (Assert.EnterMultipleScope())
+      {
+        Assert.That(target.Contains(expected1), Is.False);
+        Assert.That(target.Contains(expected2), Is.True);
+        Assert.That(target.Contains(expected3), Is.True);
+        Assert.That(target.Contains(expected4), Is.True);
+        Assert.That(target.Head, Is.EqualTo(expectedHead));
+        Assert.That(target.Tail, Is.EqualTo(expectedTail));
+        Assert.That(target.Size, Is.EqualTo(expectedSize));
+      }
     }
 
     [Test]
@@ -1816,7 +1897,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.Size;
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1842,7 +1923,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.ToArray();
 
       // assert
-      Assert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1860,7 +1941,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Skip(50);
 
       // assert
-      Assert.AreEqual(expectedHead, target.Head);
+      Assert.That(target.Head, Is.EqualTo(expectedHead));
     }
 
     [Test]
@@ -1882,7 +1963,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Skip(2);
 
       // assert
-      Assert.AreEqual(expected, target.Head);
+      Assert.That(target.Head, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1907,7 +1988,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
 
       byte[] actual = target.ToArray();
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1936,7 +2017,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.ToArray();
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -1964,7 +2045,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       actual = target.ToArray();
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     #endregion
@@ -2031,7 +2112,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(0, actual, 0, target.Size);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -2068,7 +2149,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.CopyTo(6, actual, 0, target.Size);
 
       // assert
-      CollectionAssert.AreEqual(expected, actual);
+      Assert.That(actual, Is.EqualTo(expected));
     }
 
     [Test]
@@ -2092,7 +2173,7 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       }
 
       // assert
-      Assert.AreEqual(expected, target.Head);
+      Assert.That(target.Head, Is.EqualTo(expected));
     }
   }
 }

@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.0.0
+
+### Removed
+
+* Removed obsolete build targets: net35, net40, net452, net472,
+  netcoreapp2.1, netcoreapp2.2, netcoreapp3.1, netstandard2.1
+
 ## 1.2.2
 
 ### Fixed
