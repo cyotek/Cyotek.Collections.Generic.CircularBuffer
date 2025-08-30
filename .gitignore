@@ -3,6 +3,7 @@ packages/
 bin/
 obj/
 _NCrunch_*/
+.NCrunch_*/
 testresults/
 NDependOut/
 releases/
