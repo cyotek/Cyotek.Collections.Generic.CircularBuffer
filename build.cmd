@@ -19,6 +19,7 @@ dotnet build %PRJFILE% --configuration Release
 
 CALL signcmd %RELDIR%net462\%DLLNAME%
 CALL signcmd %RELDIR%net8.0\%DLLNAME%
+CALL signcmd %RELDIR%net10.0\%DLLNAME%
 CALL signcmd %RELDIR%netstandard2.0\%DLLNAME%
 
 dotnet pack %PRJFILE% --configuration Release --no-build
