@@ -788,6 +788,56 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
     }
 
     [Test]
+    public void GetLast_handles_wrapped_tail_after_get()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string expected;
+      string actual;
+
+      target = new CircularBuffer<string>(4);
+
+      expected = "Delta";
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+      target.Put("Delta");
+      target.Get();
+
+      // act
+      actual = target.GetLast();
+
+      // assert
+      Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void GetLast_on_wrapped_tail_then_put_should_not_overwrite_items()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string[] expected;
+      string[] actual;
+
+      target = new CircularBuffer<string>(3);
+
+      expected = new[] { "Alpha", "Beta", "Delta" };
+
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+      target.GetLast();
+
+      // act
+      target.Put("Delta");
+
+      // assert
+      actual = target.ToArray();
+      Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
     public void GetLast_should_decrease_size()
     {
       // arrange
@@ -1641,6 +1691,30 @@ namespace Cyotek.Collections.Generic.CircularBuffer.Tests
       target.Put("Gamma");
 
       expected = "Gamma";
+
+      // act
+      actual = target.PeekLast();
+
+      // assert
+      Assert.That(actual, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void PeekLastWrapBufferAfterGetTest()
+    {
+      // arrange
+      CircularBuffer<string> target;
+      string expected;
+      string actual;
+
+      target = new CircularBuffer<string>(4);
+      target.Put("Alpha");
+      target.Put("Beta");
+      target.Put("Gamma");
+      target.Put("Delta");
+      target.Get();
+
+      expected = "Delta";
 
       // act
       actual = target.PeekLast();
