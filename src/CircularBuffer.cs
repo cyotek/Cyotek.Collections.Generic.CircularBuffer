@@ -442,10 +442,7 @@ namespace Cyotek.Collections.Generic
       index = this.GetTailIndex(0);
       item = _buffer[index];
 
-      if (--_tail < 0)
-      {
-        _tail = 0;
-      }
+      _tail = index;
       _size--;
 
       return item;
@@ -792,9 +789,7 @@ namespace Cyotek.Collections.Generic
     {
       int bufferIndex;
 
-      bufferIndex = _tail == 0
-        ? _size - (index + 1)
-        : _tail - (index + 1);
+      bufferIndex = _tail - (index + 1);
 
       if (bufferIndex < 0)
       {
